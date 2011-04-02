@@ -11,10 +11,17 @@ package Delgates
 	
 	import General.Input;
 	
-	import Utils.Settings;
+	import Utils.Proj;
 	
 	import flash.display.Sprite;
-
+	
+	/**
+	 * This handles mouse interactivity in the Main world. Allows the user to 
+	 * client, drag and throw dynamic bodies around.
+	 * 
+	 * @author ghostmonk
+	 * 
+	 */	
 	public class MouseActionDelegate
 	{
 		private var mouseJoint:b2MouseJoint;
@@ -27,16 +34,27 @@ package Delgates
 		
 		private var world:b2World;
 		
+		/**
+		 * The stageSprite is typically your root sprite. (Not the stage)
+		 * This is needed by the Input class, to track MouseEvents. 
+		 * @param stageSprite
+		 * 
+		 */		
 		public function MouseActionDelegate( stageSprite:Sprite )
 		{
 			input = new Input( stageSprite );
-			world = Settings.World;
+			world = Proj.World;
 		}
 		
+		/**
+		 * Update should be called on the EnterFrame Event. The LoopManager will handle this method 
+		 * automatically if an instance is passed to it.
+		 * 
+		 */		
 		public function Update() : void
 		{
-			mouseXWorldPhys = Input.mouseX / Settings.METER_PIXELS;
-			mouseYWorldPhys = Input.mouseY / Settings.METER_PIXELS;
+			mouseXWorldPhys = Proj.Meters( Input.mouseX );
+			mouseYWorldPhys = Proj.Meters( Input.mouseY );
 			mouseXWorld = Input.mouseX;
 			mouseYWorld = Input.mouseY;
 			
