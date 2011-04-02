@@ -1,0 +1,6 @@
+Sling Shot Game is probably going to be a clone of Angry Birds... 
+This is what clients seem to want.
+It uses the AS3 port of Box2D - version 2.1
+Box2D has been included with this project, and the Sling Shot Game must reference this code in order to compile.
+
+Many Box2D utilites have been created to assist in the prouction of the Sling Shot Game.
