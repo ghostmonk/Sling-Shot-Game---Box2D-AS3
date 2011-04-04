@@ -12,30 +12,29 @@ package Utils
 	 * @author ghostmonk
 	 * 
 	 */
-	public class Proj
-	{
-		/**
-		 * How many pixels make up a meter in the Box2D world. 
-		 */		
-		public static const METER_PIXELS:Number = 30;
-		
-		/**
-		 * The default Gravity setting for the world. 
-		 */		
-		public static const GRAVITY:b2Vec2 = new b2Vec2( 0, 50 );
+	public class World
+	{		
+		private static const GRAVITY:b2Vec2 = new b2Vec2( 0, 10 );
 		
 		private static var world:b2World;
 		
+		private static var meterPixels:Number = 30;
+		
 		/**
-		 * The World function returns a singleton instance of b2World.
+		 * Returns a singleton instance of b2World.
 		 * All code should cache a reference to the World through this method. 
 		 * @return 
 		 * 
 		 */		
-		public static function get World() : b2World
+		public static function get Instance() : b2World
 		{
 			if( !world ) world = new b2World( GRAVITY, true );
 			return world;
+		}
+		
+		public static function set MeterPixels( value:Number ) : void
+		{
+			meterPixels = value;
 		}
 		
 		/**
@@ -49,12 +48,12 @@ package Utils
 		{
 			var draw:b2DebugDraw = new b2DebugDraw();
 			draw.SetSprite( root );
-			draw.SetDrawScale( METER_PIXELS );
+			draw.SetDrawScale( meterPixels );
 			draw.SetLineThickness( 1.0 );
 			draw.SetAlpha( 1 );
 			draw.SetAlpha( 0.4 );
 			draw.SetFlags( b2DebugDraw.e_shapeBit );
-			World.SetDebugDraw( draw );
+			Instance.SetDebugDraw( draw );
 		}
 		
 		/**
@@ -67,7 +66,7 @@ package Utils
 		 */		
 		public static function Meters( pixels:Number ) : Number
 		{
-			return pixels / METER_PIXELS;
+			return pixels / meterPixels;
 		}
 	}
 }

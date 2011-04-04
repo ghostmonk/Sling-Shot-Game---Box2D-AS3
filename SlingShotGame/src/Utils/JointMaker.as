@@ -28,7 +28,7 @@ package Utils
 		{
 			var jointDef:b2DistanceJointDef = new b2DistanceJointDef();
 			jointDef.Initialize( body1, body2, body1.GetWorldCenter(), body2.GetWorldCenter() );
-			return Proj.World.CreateJoint( jointDef ) as b2DistanceJoint;
+			return World.Instance.CreateJoint( jointDef ) as b2DistanceJoint;
 		}
 		
 		public static function RevoluteJoint( body1:b2Body, body2:b2Body ) : b2RevoluteJoint
@@ -37,7 +37,7 @@ package Utils
 			jointDef.Initialize( body1, body2, body1.GetWorldCenter() );
 			jointDef.maxMotorTorque = 1.0;
 			jointDef.enableMotor = true;
-			return Proj.World.CreateJoint( jointDef ) as b2RevoluteJoint;
+			return World.Instance.CreateJoint( jointDef ) as b2RevoluteJoint;
 		}
 		
 		public static function PrismaticJoint( 
@@ -51,7 +51,7 @@ package Utils
 			jointDef.maxMotorForce = 1.0;
 			jointDef.motorSpeed = 0.0;
 			jointDef.enableMotor = true;
-			return Proj.World.CreateJoint( jointDef ) as b2PrismaticJoint;
+			return World.Instance.CreateJoint( jointDef ) as b2PrismaticJoint;
 		}
 		
 		public static function PullyJoint( body1:b2Body, body2:b2Body ) : b2PulleyJoint
@@ -59,15 +59,15 @@ package Utils
 			var ratio:Number = 1.0;
 			var anchor1:b2Vec2 = body1.GetWorldCenter();
 			var anchor2:b2Vec2 = body2.GetWorldCenter();
-			var groundAnchor1:b2Vec2 = new b2Vec2( anchor1.x, anchor1.y - Proj.Meters( 300 ); );
-			var groundAnchor2:b2Vec2 = new b2Vec2( anchor2.x, anchor2.y - Proj.Meters( 300 ); );
+			var groundAnchor1:b2Vec2 = new b2Vec2( anchor1.x, anchor1.y - World.Meters( 300 ); );
+			var groundAnchor2:b2Vec2 = new b2Vec2( anchor2.x, anchor2.y - World.Meters( 300 ); );
 			
 			var jointDef:b2PulleyJointDef = new b2PulleyJointDef();
 			jointDef.Initialize( body1, body2, groundAnchor1, groundAnchor2, anchor1, anchor2, ratio );
-			jointDef.maxLengthA = Proj.Meters( 600 );
-			jointDef.maxLengthB = Proj.Meters( 600 );
+			jointDef.maxLengthA = World.Meters( 600 );
+			jointDef.maxLengthB = World.Meters( 600 );
 			
-			return Proj.World.CreateJoint( jointDef ) as b2PulleyJoint;
+			return World.Instance.CreateJoint( jointDef ) as b2PulleyJoint;
 		}
 		
 		public static function GearJoint( ground:b2Body, body1:b2Body, body2:b2Body ) : b2GearJoint
@@ -85,9 +85,9 @@ package Utils
 			gearJointDef.joint2 = prismaticJoint;
 			gearJointDef.bodyA = body1;
 			gearJointDef.bodyB = body2;
-			gearJointDef.ratio = 2.0 * b2Settings.b2_pi / Proj.Meters( 300 );
+			gearJointDef.ratio = 2.0 * b2Settings.b2_pi / World.Meters( 300 );
 			
-			return Proj.World.CreateJoint( gearJointDef ) as b2GearJoint;
+			return World.Instance.CreateJoint( gearJointDef ) as b2GearJoint;
 		}
 		
 		public static function LineJoint( ground:b2Body, body:b2Body ) : b2LineJoint
@@ -100,14 +100,62 @@ package Utils
 			jointDef.maxMotorForce = 200.0;
 			jointDef.motorSpeed = 10.0;
 			jointDef.enableMotor = true;
-			return Proj.World.CreateJoint( jointDef ) as b2LineJoint;
+			return World.Instance.CreateJoint( jointDef ) as b2LineJoint;
 		}
 		
 		public static function WeldJoint( body1:b2Body, body2:b2Body ) : b2WeldJoint
 		{
 			var jointDef:b2WeldJointDef = new b2WeldJointDef();
 			jointDef.Initialize( body1, body2, body1.GetWorldCenter() );
-			return Proj.World.CreateJoint( jointDef ) as b2WeldJoint;
+			return World.Instance.CreateJoint( jointDef ) as b2WeldJoint;
+		}
+		
+		private function JointTests() : void
+		{
+			/*
+			//DISTANCE
+			JointMaker.DistanceJoint( 
+			BodyMaker.Box( H_X_STAGE - Meters( 100 ), 0, BOX_SIZE, BOX_SIZE ), 
+			BodyMaker.Box( H_X_STAGE + Meters( 100 ), 0, BOX_SIZE, BOX_SIZE ) );
+			
+			//REVOLUTE
+			JointMaker.RevoluteJoint( 
+			BodyMaker.Box( 20, 15, 0.1, 0.1, true ), 
+			BodyMaker.Box( 30, 15, BOX_SIZE, BOX_SIZE ) );
+			
+			//PRISMATIC
+			JointMaker.PrismaticJoint( 
+			BodyMaker.Box( 10, 5, BOX_SIZE, BOX_SIZE ),
+			BodyMaker.Box( 10, 15, BOX_SIZE, BOX_SIZE ),
+			new b2Vec2( 0, 0.5 ) );
+			
+			//PULLY
+			JointMaker.PullyJoint( 
+			BodyMaker.Box( 10, 10, BOX_SIZE, BOX_SIZE ),
+			BodyMaker.Box( 15, 10, BOX_SIZE, BOX_SIZE ) );
+			
+			//GEAR
+			var gear1:b2Body = BodyMaker.Box( 10, 10, BOX_SIZE, BOX_SIZE );
+			var gear2:b2Body = BodyMaker.Box( 10, 9, BOX_SIZE, BOX_SIZE );
+			var ground:b2Body = BodyMaker.Box( 10, 10, 0.1, 0.1, true );
+			JointMaker.GearJoint( ground, gear1, gear2 ); 
+			
+			//LINE
+			JointMaker.LineJoint( 
+			BodyMaker.Box( 10, 10, 0.1, 0.1, true ),
+			BodyMaker.Box( 10, 15, BOX_SIZE, BOX_SIZE ) );
+			
+			//WELD
+			var xPos:Number = 1.0;
+			var yPos:Number = 1.0;
+			var currentLink:b2Body = BodyMaker.Box( xPos, yPos, BOX_SIZE, BOX_SIZE, true ); 
+			for( var i:int = 0; i < 12; i++ )
+			{
+			xPos += 1.0;
+			var nextLink:b2Body = BodyMaker.Box( xPos, yPos, BOX_SIZE, BOX_SIZE );
+			JointMaker.WeldJoint( currentLink, nextLink );
+			currentLink = nextLink;
+			}*/
 		}
 	}
 }

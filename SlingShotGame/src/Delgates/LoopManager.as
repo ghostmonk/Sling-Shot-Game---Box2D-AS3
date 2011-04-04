@@ -2,8 +2,12 @@ package Delgates
 {
 	import Box2D.Dynamics.b2World;
 	
-	import Utils.Proj;
+	import General.FpsCounter;
 	
+	import Utils.StageRef;
+	import Utils.World;
+	
+	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
 
@@ -17,8 +21,8 @@ package Delgates
 	public class LoopManager
 	{
 		private var world:b2World;
-		private var stage:Stage;
 		private var mouseActionDelegate:MouseActionDelegate;
+		private var fpsCounter:FpsCounter;
 		
 		/**
 		 * If managed correctly, the LoopManager should be able to handle updating the entire game.
@@ -28,12 +32,27 @@ package Delgates
 		 * @param mouseActionDelegate
 		 * 
 		 */		
-		public function LoopManager( stage:Stage, mouseActionDelegate:MouseActionDelegate )
+		public function LoopManager( mouseActionDelegate:MouseActionDelegate )
 		{
-			this.stage = stage;
 			this.mouseActionDelegate = mouseActionDelegate;
-			world = Proj.World;
-			stage.addEventListener( Event.ENTER_FRAME, OnEnterFrame );
+			world = World.Instance;
+			StageRef.stage.addEventListener( Event.ENTER_FRAME, OnEnterFrame );
+		}
+		
+		public function set ShowFpsCounter( value:Boolean ) : void
+		{
+			if( value )
+			{
+				fpsCounter = new FpsCounter();
+				fpsCounter.x = 20;
+				fpsCounter.y = 20;
+				StageRef.stage.addChild( fpsCounter );
+			}
+			else
+			{
+				StageRef.stage.removeChild( fpsCounter );
+				fpsCounter = null;
+			}
 		}
 		
 		private function OnEnterFrame( e:Event ) : void
@@ -43,6 +62,8 @@ package Delgates
 			world.Step( 1 / 60, 6, 2 );
 			world.ClearForces();
 			world.DrawDebugData();
+			
+			if( fpsCounter ) fpsCounter.update();
 		}
 	}
 }

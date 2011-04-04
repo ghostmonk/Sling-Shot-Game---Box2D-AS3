@@ -11,7 +11,7 @@ package Delgates
 	
 	import General.Input;
 	
-	import Utils.Proj;
+	import Utils.World;
 	
 	import flash.display.Sprite;
 	
@@ -43,7 +43,7 @@ package Delgates
 		public function MouseActionDelegate( stageSprite:Sprite )
 		{
 			input = new Input( stageSprite );
-			world = Proj.World;
+			world = World.Instance;
 		}
 		
 		/**
@@ -53,8 +53,8 @@ package Delgates
 		 */		
 		public function Update() : void
 		{
-			mouseXWorldPhys = Proj.Meters( Input.mouseX );
-			mouseYWorldPhys = Proj.Meters( Input.mouseY );
+			mouseXWorldPhys = World.Meters( Input.mouseX );
+			mouseYWorldPhys = World.Meters( Input.mouseY );
 			mouseXWorld = Input.mouseX;
 			mouseYWorld = Input.mouseY;
 			

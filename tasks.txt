@@ -1,0 +1,16 @@
+Tasks
+
+Sling shot
+figure out how to shoot projectiles
+figure out hit tests
+sound effects
+study angry birds
+create levels and scoring strategy
+Daily updates
+skin
+title screen
+
+********** release to web
+********** Building maker
+********** simulation
+********** create a better configuration manager
