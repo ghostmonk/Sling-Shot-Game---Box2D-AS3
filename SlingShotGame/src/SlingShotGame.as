@@ -1,13 +1,13 @@
 package
 {	
-	import Box2D.Dynamics.b2Body;
-	import Box2D.Dynamics.b2World;
+	import Box2D.Common.Math.b2Vec2;
 	
 	import Config.BodyFactory;
 	
 	import Delgates.LoopManager;
 	import Delgates.MouseActionDelegate;
 	
+	import Utils.Ragdoll;
 	import Utils.StageRef;
 	import Utils.World;
 	
@@ -17,20 +17,10 @@ package
 	
 	import mx.core.ByteArrayAsset;
 
-	[SWF(width="1200", height="500", pageTitle="Angry Bairds", frameRate=60, backgroundColor=0x333333)]
+	[SWF(width="1100", height="500", pageTitle="Angry Bairds", frameRate=60, backgroundColor=0x333333)]
 	public class SlingShotGame extends Sprite
 	{
-		private static var H_X_STAGE:Number;
-		private static var H_Y_STAGE:Number;
-		
-		private static var BOX_SIZE:Number = 0.5;
-		
 		private var loopManager:LoopManager;
-		private var world:b2World;
-		private var ground:b2Body;
-		private var leftWall:b2Body;
-		private var rightWall:b2Body;
-		private var roof:b2Body;
 		
 		[Embed("./Config/Structures.xml", mimeType="application/octet-stream")]
 		private static const Structures:Class;
@@ -41,8 +31,8 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			StageRef.stage = stage;
 			
-			world = World.Instance;
 			new BodyFactory( Config );
+			Ragdoll.Create( new b2Vec2( 5, 5 ) );
 			
 			World.DebugView( this );
 			loopManager = new LoopManager( new MouseActionDelegate( this ) );

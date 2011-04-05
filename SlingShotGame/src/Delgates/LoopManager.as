@@ -2,6 +2,7 @@ package Delgates
 {
 	import Box2D.Dynamics.b2World;
 	
+	import General.FRateLimiter;
 	import General.FpsCounter;
 	
 	import Utils.StageRef;
@@ -10,6 +11,7 @@ package Delgates
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.utils.getTimer;
 
 	/**
 	 * Responsible for setting up the game loop. In this case, Event.EnterFrame, and invoking whatever methods 
@@ -59,11 +61,17 @@ package Delgates
 		{
 			mouseActionDelegate.Update();
 			
-			world.Step( 1 / 60, 6, 2 );
+			var physStart:uint = getTimer();
+			world.Step( 1 / 30, 10, 10 );
 			world.ClearForces();
 			world.DrawDebugData();
 			
-			if( fpsCounter ) fpsCounter.update();
+			
+			if( fpsCounter ) 
+			{
+				fpsCounter.update();
+				fpsCounter.updatePhys( physStart );
+			}
 		}
 	}
 }

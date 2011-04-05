@@ -5,7 +5,7 @@
 		
 		<world name="slingShot" meterPixels="30" xGravity="0" yGravity="10" />
 		
-		<boundary width="1200" height="500" />
+		<boundary width="1100" height="500" />
 		
 		<fixtureDef density="0.0" friction="0.2" restitution="0.0" isSensor="false" />
 		
@@ -16,16 +16,41 @@
 			
 	</defaultSettings>
 	
-	<structure>
-		<circle radius="20" density="5" y="100" bullet="true" />
+	<structure name="Base" x="560" y="310" fixtureDefId="dense">
+		<box x="0" y="147" width="7" height="35" />
+		<box x="100" y="147" width="7" height="35" />
+		<box x="200" y="147" width="7" height="35" />
+		<box x="300" y="147" width="7" height="35" />
+		<box x="400" y="147" width="7" height="35" />
+		<box x="500" y="147" width="7" height="35" />
 	</structure>
 	
-	<structure>
-		<box fixtureDefId="dense" x="900" y="350" width="10" height="100" />
-		<box fixtureDefId="dense" x="1100" y="350" width="10" height="100" />
-		<box fixtureDefId="dense" x="1000" y="200" width="100" height="10" />
+	<structure name="BaseRoof" x="606" y="415" fixtureDefId="dense">
+	   <box x="0" y="0" width="53" height="7" />
+	   <box x="103" y="0" width="50" height="7" />
+	   <box x="203" y="0" width="50" height="7" />
+	   <box x="303" y="0" width="50" height="7" />
+	   <box x="407" y="0" width="54" height="7" />
 	</structure>
 	
-	<fixtureDef id="dense" density="100" />
+	<structure name="LeftColumn" x="560" y="331" blueprintId="ColumnBlock" />
+    <structure name="CenterTop" x="760" y="163" blueprintId="ColumnBlock" />
+    <structure name="CenterMiddle" x="760" y="247" blueprintId="ColumnBlock" />
+    <structure name="CenterBottom" x="760" y="331" blueprintId="ColumnBlock" />
+    <structure name="RightColumn" x="960" y="331" blueprintId="ColumnBlock" />
+    
+    <structure name="Steeples" x="610" y="95">
+        <triangle x="0" y="193" width="113" height="70" />
+        <triangle x="200" y="0" width="113" height="120" />
+        <triangle x="400" y="193" width="113" height="70" />
+    </structure>
+	
+	<blueprint id="ColumnBlock" fixtureDefId="dense">
+	   <box x="50" y="0" width="57" height="7" />
+       <box x="0" y="42" width="7" height="35" />
+       <box x="100" y="42" width="7" height="35" />
+	</blueprint>
+	
+	<fixtureDef id="dense" density="10" />
 	
 </slignshotConfig>

@@ -14,12 +14,14 @@ package Config
 	{
 		private var fixtureDefs:Object = {};
 		private var bodyDefs:Object = {};
+		private var blueprints:Object = {};
 		
 		public function BodyFactory( config:XML )
 		{
 			ParseDefaultSettings( config.defaultSettings[0] );
 			CacheFixtureDefs( config.fixtureDef );
 			CacheBodyDefs( config.bodyDef); 
+			CacheBluePrints( config.blueprint );
 			CreateStructures( config.structure );
 			fixtureDefs = null;
 			bodyDefs = null;
@@ -94,37 +96,86 @@ package Config
 			}
 		}
 		
+		private function CacheBluePrints( list:XMLList ) : void
+		{
+			for each( var node:XML in list )
+			{
+				blueprints[ node.@id.toString() ] = node;
+			}
+		}
+		
 		private function CreateStructures( list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
-				CreateBoxes( node.box );
-				CreateCircles( node.circle );
+				CheckForBluePrint( node );
+				ParseNode( node );
 			}
 		}
 		
-		private function CreateBoxes( list:XMLList ) : void
+		private function CheckForBluePrint( node:XML ) : void
+		{
+			var bluePrint:XML = XML( blueprints[ node.@blueprintId.toString() ] ).copy();
+			if( !bluePrint ) return;
+			bluePrint.@['x'] = node.@x;
+			bluePrint.@['y'] = node.@y;
+			ParseNode( bluePrint );
+		}
+		
+		private function ParseNode( node:XML ) : void
+		{
+			CreateBoxes( node, node.box );
+			CreateCircles( node, node.circle );
+			CreateTriangles( node, node.triangle );
+		}
+		
+		private function CreateBoxes( structureNode:XML, list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
-				CheckForCachedBodyDef( node.@bodyDefId );
-				CheckForCachedFixtureDef( node.@fixtureDefId );
-				SetInlineValues( node );
+				PreserveStructurePositions( structureNode, node );
 				BodyMaker.Box( World.Meters( node.@width ), World.Meters( node.@height ) );
 				ResetConfig();
 			}
 		}
 		
-		private function CreateCircles( list:XMLList ) : void
+		private function CreateCircles( structureNode:XML, list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
-				CheckForCachedBodyDef( node.@bodyDefId );
-				CheckForCachedFixtureDef( node.@fixtureDefId );
-				SetInlineValues( node );
+				PreserveStructurePositions( structureNode, node );
 				BodyMaker.Circle( World.Meters( node.@radius ) );
 				ResetConfig();
 			}
+		}
+		
+		private function CreateTriangles( structureNode:XML, list:XMLList ) : void
+		{
+			for each( var node:XML in list )
+			{
+				PreserveStructurePositions( structureNode, node );
+				BodyMaker.Triangle( World.Meters( node.@width ), World.Meters( node.@height ) );
+				ResetConfig();
+			}
+		}
+		
+		private function PreserveStructurePositions( structureNode:XML, bodyNode:XML ) : void
+		{
+			ResolveNodeSettings( structureNode );
+			var x:Number = World.Meters( bodyNode.@x );
+			var y:Number = World.Meters( bodyNode.@y );
+			delete bodyNode.@x;
+			delete bodyNode.@y;
+			ResolveNodeSettings( bodyNode );
+			BodyDefSettings.Instance.X += x;
+			BodyDefSettings.Instance.Y += y;
+		}
+		
+		private function ResolveNodeSettings( node:XML ) : void
+		{
+			CheckForCachedBodyDef( node.@bodyDefId );
+			CheckForCachedFixtureDef( node.@fixtureDefId );
+			SetInlineValues( node );
 		}
 		
 		private function CheckForCachedFixtureDef( id:String ) : void
