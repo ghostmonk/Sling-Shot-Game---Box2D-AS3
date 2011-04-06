@@ -47,13 +47,13 @@ package Utils
 		public static function DebugView( root:Sprite ) : void
 		{
 			var draw:b2DebugDraw = new b2DebugDraw();
-			draw.SetSprite( root );
-			draw.SetDrawScale( meterPixels );
-			draw.SetLineThickness( 1.0 );
-			draw.SetAlpha( 1 );
-			draw.SetAlpha( 0.4 );
-			draw.SetFlags( b2DebugDraw.e_shapeBit );
-			Instance.SetDebugDraw( draw );
+			draw.SetSprite(root);
+			draw.SetDrawScale(meterPixels);
+			draw.SetFillAlpha(0.3);
+			draw.SetLineThickness(1.0);
+			draw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+			Instance.SetDebugDraw(draw);
+			Instance.DrawDebugData();
 		}
 		
 		/**

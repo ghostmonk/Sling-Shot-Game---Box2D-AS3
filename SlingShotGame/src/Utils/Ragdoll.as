@@ -3,18 +3,85 @@ package Utils
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Common.b2Settings;
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
+	
+	import Delgates.MouseActionDelegate;
+	
+	import flash.display.Stage;
+	import flash.events.MouseEvent;
 
 	/**
 	 *@author ghostmonk - Apr 4, 2011
 	 */
 	public class Ragdoll 
 	{
-		public static function Create( pos:b2Vec2 ) : void
+		private static var Head:b2Body;
+		
+		public static function Simple( x:Number, y:Number, height:Number, mouseEnabled:Boolean = false ) : void
+		{
+			x = World.Meters( x );
+			y = World.Meters( y );
+			
+			var headSize:Number = World.Meters( height / 5 );
+			var offset:Number = World.Meters( 2 );
+			var limbLength:Number = headSize * 0.8;
+			var limbWidth:Number = headSize * 0.3;
+			var legXOffset:Number = headSize - limbWidth;
+			var armXOffset:Number = headSize + limbLength;
+			var legY:Number = y + headSize * 3 + limbLength;
+			var armY:Number = y + headSize + limbWidth * 1.5;
+			var lightJointAngle:Number = 20;
+			var extremeJointAngle:Number = 60;
+			
+			var jointDef:b2RevoluteJointDef = new b2RevoluteJointDef();
+			jointDef.enableLimit = true;
+			var rad180:Number = 180 / Math.PI;
+			
+			var torso:b2Body = CreateBox( headSize, headSize, x, y + offset + headSize * 2 );
+			
+			Head = BodyMaker.Circle( headSize );
+			Head.SetPosition( new b2Vec2( x, y ) );
+			jointDef.lowerAngle = -lightJointAngle / rad180;
+			jointDef.upperAngle = lightJointAngle / rad180;
+			jointDef.Initialize( Head, torso, new b2Vec2( x, y + headSize ) );
+			World.Instance.CreateJoint( jointDef );
+			
+			var leftLeg:b2Body = CreateBox( limbWidth, limbLength, x - legXOffset, legY  );
+			jointDef.Initialize( torso, leftLeg, new b2Vec2( x - legXOffset, legY - limbLength ) );
+			World.Instance.CreateJoint( jointDef );
+			
+			var rightLeg:b2Body = CreateBox( limbWidth, limbLength, x + legXOffset, legY );
+			jointDef.Initialize( torso, rightLeg, new b2Vec2( x + legXOffset, legY - limbLength ) );
+			World.Instance.CreateJoint( jointDef );
+			
+			var leftArm:b2Body = CreateBox( limbLength, limbWidth, x - armXOffset, armY );
+			jointDef.lowerAngle = -extremeJointAngle / rad180;
+			jointDef.upperAngle = extremeJointAngle / rad180;
+			jointDef.Initialize( torso, leftArm, new b2Vec2( x - headSize, armY ) );
+			World.Instance.CreateJoint( jointDef );
+			
+			var rightArm:b2Body = CreateBox( limbLength, limbWidth, x + armXOffset, armY );
+			jointDef.Initialize( torso, rightArm, new b2Vec2( x + headSize, armY ) );
+			World.Instance.CreateJoint( jointDef );
+			
+			StageRef.stage.addEventListener( MouseEvent.CLICK, ShootHead );
+			
+			if( !mouseEnabled ) return;
+			
+			MouseActionDelegate.MouseEnabled.push( Head );
+			MouseActionDelegate.MouseEnabled.push( torso );
+			MouseActionDelegate.MouseEnabled.push( leftLeg );
+			MouseActionDelegate.MouseEnabled.push( rightLeg );
+			MouseActionDelegate.MouseEnabled.push( leftArm );
+			MouseActionDelegate.MouseEnabled.push( rightArm );
+		}
+		
+		public static function Complex( pos:b2Vec2 ) : void
 		{
 			var scale:Number = 35.0;
 			var startX:Number = pos.x * scale;
@@ -212,6 +279,20 @@ package Utils
 				jd.Initialize(upperLegR, lowerLegR, new b2Vec2((startX + 8) / scale, (startY + 105) / scale));
 				world.CreateJoint(jd);
 			}
+		}
+		
+		private static function CreateBox( width:Number, height:Number, x:Number, y:Number ) : b2Body
+		{
+			var piece:b2Body = BodyMaker.Box( width, height );
+			piece.SetPosition( new b2Vec2( x, y ) );
+			return piece;
+		}
+		
+		private static function ShootHead( e:MouseEvent ) : void
+		{
+			//Head.ApplyForce( new b2Vec2( 5, 5 ), new b2Vec2( 100, 100 ) );
+			
+			Head.SetLinearVelocity( new b2Vec2( 400, -75 ) );
 		}
 	}
 }

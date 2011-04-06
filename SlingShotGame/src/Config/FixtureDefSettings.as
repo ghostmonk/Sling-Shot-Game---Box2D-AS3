@@ -13,7 +13,7 @@ package Config
 		public var Restitution:Number;
 		public var IsSensor:Boolean;
 		
-		private var defaultSettings:Object = { density:0.0, friction:0.2, restitution:0.0, isSensor:false };
+		private var defaultSettings:Object = { density:0.1, friction:0.2, restitution:0.0, isSensor:false };
 		
 		private static var instance:FixtureDefSettings;
 		

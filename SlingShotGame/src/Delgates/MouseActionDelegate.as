@@ -34,6 +34,8 @@ package Delgates
 		
 		private var world:b2World;
 		
+		public static var MouseEnabled:Array = [];
+		
 		/**
 		 * The stageSprite is typically your root sprite. (Not the stage)
 		 * This is needed by the Input class, to track MouseEvents. 
@@ -98,7 +100,7 @@ package Delgates
 			{
 				var body:b2Body = GetBodyAtMouse();
 				
-				if( body )
+				if( MouseEnabled.indexOf( body ) > -1 )
 				{
 					var mouseJointDef:b2MouseJointDef = new b2MouseJointDef();
 					mouseJointDef.bodyA = world.GetGroundBody();

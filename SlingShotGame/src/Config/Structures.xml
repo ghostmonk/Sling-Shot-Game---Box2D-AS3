@@ -7,7 +7,7 @@
 		
 		<boundary width="1100" height="500" />
 		
-		<fixtureDef density="0.0" friction="0.2" restitution="0.0" isSensor="false" />
+		<fixtureDef density="0.1" friction="0.5" restitution="0.0" isSensor="false" />
 		
 		<bodyDef x="0.0" y="0.0" type="dynamic"
             active="true" allowSleep="true" awake="true" bullet="false" fixedRotation="false" inertiaScale="1.0"  
@@ -16,7 +16,7 @@
 			
 	</defaultSettings>
 	
-	<structure name="Base" x="560" y="310" fixtureDefId="dense">
+	<structure name="Base" x="560" y="309" fixtureDefId="dense">
 		<box x="0" y="147" width="7" height="35" />
 		<box x="100" y="147" width="7" height="35" />
 		<box x="200" y="147" width="7" height="35" />
@@ -25,30 +25,33 @@
 		<box x="500" y="147" width="7" height="35" />
 	</structure>
 	
-	<structure name="BaseRoof" x="606" y="415" fixtureDefId="dense">
-	   <box x="0" y="0" width="53" height="7" />
-	   <box x="103" y="0" width="50" height="7" />
-	   <box x="203" y="0" width="50" height="7" />
-	   <box x="303" y="0" width="50" height="7" />
-	   <box x="407" y="0" width="54" height="7" />
+	<structure name="BaseRoof" x="605" y="413" fixtureDefId="dense">
+	   <box x="0" y="0" width="52" height="7" />
+	   <box x="104" y="0" width="49" height="7" />
+	   <box x="205" y="0" width="49" height="7" />
+	   <box x="306" y="0" width="49" height="7" />
+	   <box x="410" y="0" width="52" height="7" />
 	</structure>
 	
-	<structure name="LeftColumn" x="560" y="331" blueprintId="ColumnBlock" />
-    <structure name="CenterTop" x="760" y="163" blueprintId="ColumnBlock" />
-    <structure name="CenterMiddle" x="760" y="247" blueprintId="ColumnBlock" />
-    <structure name="CenterBottom" x="760" y="331" blueprintId="ColumnBlock" />
-    <structure name="RightColumn" x="960" y="331" blueprintId="ColumnBlock" />
+	<structure name="LeftColumn" x="560" y="327" blueprintId="ColumnBlock" />
+    <structure name="CenterTop" x="760" y="155" blueprintId="ColumnBlock" />
+    <structure name="CenterMiddle" x="760" y="241" blueprintId="ColumnBlock" />
+    <structure name="CenterBottom" x="760" y="327" blueprintId="ColumnBlock" />
+    <structure name="RightColumn" x="960" y="327" blueprintId="ColumnBlock" />
     
-    <structure name="Steeples" x="610" y="95">
-        <triangle x="0" y="193" width="113" height="70" />
-        <triangle x="200" y="0" width="113" height="120" />
-        <triangle x="400" y="193" width="113" height="70" />
+    <structure name="Steeples" x="610" y="87">
+        <trapezoid x="0" y="202" topWidth="50" bottomWidth="113" height="60" />
+        <trapezoid x="200" y="0" topWidth="10" bottomWidth="113" height="120" />
+        <trapezoid x="400" y="202" topWidth="50" bottomWidth="113" height="60" />
+        <circle name="Item01" x="0" y="288" radius="30" density="0" />
+        <circle name="Clock" x="201" y="111" radius="35" density="0" />
+        <circle name="Item02" x="401" y="288" radius="30" density="0" />
     </structure>
 	
 	<blueprint id="ColumnBlock" fixtureDefId="dense">
 	   <box x="50" y="0" width="57" height="7" />
-       <box x="0" y="42" width="7" height="35" />
-       <box x="100" y="42" width="7" height="35" />
+       <box x="0" y="43" width="7" height="35" />
+       <box x="100" y="43" width="7" height="35" />
 	</blueprint>
 	
 	<fixtureDef id="dense" density="10" />

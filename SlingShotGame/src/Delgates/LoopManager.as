@@ -62,7 +62,7 @@ package Delgates
 			mouseActionDelegate.Update();
 			
 			var physStart:uint = getTimer();
-			world.Step( 1 / 30, 10, 10 );
+			world.Step( 1 / 38, 10, 10 );
 			world.ClearForces();
 			world.DrawDebugData();
 			

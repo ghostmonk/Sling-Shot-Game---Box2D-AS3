@@ -59,8 +59,8 @@ package Utils
 			var ratio:Number = 1.0;
 			var anchor1:b2Vec2 = body1.GetWorldCenter();
 			var anchor2:b2Vec2 = body2.GetWorldCenter();
-			var groundAnchor1:b2Vec2 = new b2Vec2( anchor1.x, anchor1.y - World.Meters( 300 ); );
-			var groundAnchor2:b2Vec2 = new b2Vec2( anchor2.x, anchor2.y - World.Meters( 300 ); );
+			var groundAnchor1:b2Vec2 = new b2Vec2( anchor1.x, anchor1.y - World.Meters( 300 ) );
+			var groundAnchor2:b2Vec2 = new b2Vec2( anchor2.x, anchor2.y - World.Meters( 300 ) );
 			
 			var jointDef:b2PulleyJointDef = new b2PulleyJointDef();
 			jointDef.Initialize( body1, body2, groundAnchor1, groundAnchor2, anchor1, anchor2, ratio );

@@ -27,27 +27,34 @@ package Utils
 			return GetFixturedBody( new b2CircleShape( radius ) );
 		}
 		
+		public static function Trapezoid( topWidth:Number, bottomWidth:Number, height:Number ) : b2Body
+		{
+			var halfTop:Number = topWidth * 0.5;
+			var halfBottom:Number = bottomWidth * 0.5;
+			var halfHeight:Number = height * 0.5;
+			
+			var trapShape:b2PolygonShape = new b2PolygonShape();
+			trapShape.SetAsArray( [
+				new b2Vec2( -halfTop, -halfHeight ),
+				new b2Vec2( halfTop, -halfHeight ),
+				new b2Vec2( halfBottom, halfHeight ),
+				new b2Vec2( -halfBottom, halfHeight )], 4 );
+			
+			return GetFixturedBody( trapShape );
+		}
+		
 		public static function Triangle( width:Number, height:Number ) : b2Body
 		{
-			var bodyDef:b2BodyDef = GetBodyDef();
-			var triangle:b2Body = World.Instance.CreateBody( bodyDef );
-			
-			var triangleShape:b2PolygonShape = new b2PolygonShape();
 			var halfHeight:Number = height * 0.5;
 			var halfWidth:Number = width * 0.5;
 			
-			var verticies:Array = [
-				new b2Vec2( 0, halfHeight ),
-				new b2Vec2( -halfWidth, -halfHeight ),
-				new b2Vec2( halfWidth, -halfHeight ) ];
+			var triangleShape:b2PolygonShape = new b2PolygonShape();
+			triangleShape.SetAsArray( [
+				new b2Vec2( 0, -halfHeight  ),
+				new b2Vec2( halfWidth, halfHeight ),
+				new b2Vec2( -halfWidth, halfHeight )], 3 );
 			
-			triangleShape.SetAsArray( verticies, 3 );
-			
-			var fixtureDef:b2FixtureDef = GetFixtureDef();
-			fixtureDef.shape = triangleShape;
-			triangle.CreateFixture( fixtureDef );
-			triangle.SetAngle( b2Settings.b2_pi );
-			return triangle;
+			return  GetFixturedBody( triangleShape );
 		}
 		
 		private static function GetFixturedBody( shape:b2Shape ) : b2Body
@@ -62,13 +69,13 @@ package Utils
 		private static function GetFixtureDef() : b2FixtureDef
 		{
 			var	fixtureConf:FixtureDefSettings = FixtureDefSettings.Instance;
-			var fixture:b2FixtureDef = new b2FixtureDef();
-			fixture.density = fixtureConf.Density;
-			fixture.friction = fixtureConf.Friction;
-			fixture.isSensor = fixtureConf.IsSensor;
-			fixture.restitution = fixtureConf.Restitution;
+			var fixtureDef:b2FixtureDef = new b2FixtureDef();
+			fixtureDef.density = fixtureConf.Density;
+			fixtureDef.friction = fixtureConf.Friction;
+			fixtureDef.isSensor = fixtureConf.IsSensor;
+			fixtureDef.restitution = fixtureConf.Restitution;
 			
-			return fixture;
+			return fixtureDef;
 		}
 		
 		private static function GetBodyDef() : b2BodyDef

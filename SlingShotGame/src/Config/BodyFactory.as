@@ -127,6 +127,7 @@ package Config
 			CreateBoxes( node, node.box );
 			CreateCircles( node, node.circle );
 			CreateTriangles( node, node.triangle );
+			CreateTrapezoids( node, node.trapezoid );
 		}
 		
 		private function CreateBoxes( structureNode:XML, list:XMLList ) : void
@@ -155,6 +156,16 @@ package Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				BodyMaker.Triangle( World.Meters( node.@width ), World.Meters( node.@height ) );
+				ResetConfig();
+			}
+		}
+		
+		private function CreateTrapezoids( structureNode:XML, list:XMLList ) : void
+		{
+			for each( var node:XML in list )
+			{
+				PreserveStructurePositions( structureNode, node );
+				BodyMaker.Trapezoid( World.Meters( node.@topWidth ), World.Meters( node.@bottomWidth ), World.Meters( node.@height ) );
 				ResetConfig();
 			}
 		}

@@ -17,7 +17,7 @@ package
 	
 	import mx.core.ByteArrayAsset;
 
-	[SWF(width="1100", height="500", pageTitle="Angry Bairds", frameRate=60, backgroundColor=0x333333)]
+	[SWF(width="1100", height="500", pageTitle="Angry Bairds", frameRate=100, backgroundColor=0x333333)]
 	public class SlingShotGame extends Sprite
 	{
 		private var loopManager:LoopManager;
@@ -32,7 +32,7 @@ package
 			StageRef.stage = stage;
 			
 			new BodyFactory( Config );
-			Ragdoll.Create( new b2Vec2( 5, 5 ) );
+			Ragdoll.Simple( 70, 350, 100, true );
 			
 			World.DebugView( this );
 			loopManager = new LoopManager( new MouseActionDelegate( this ) );
