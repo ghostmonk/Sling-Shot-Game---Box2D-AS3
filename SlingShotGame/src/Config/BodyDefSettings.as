@@ -51,9 +51,6 @@ package Config
 		 */
 		public function BodyDefSettings( config:XML = null )
 		{
-			if( instance != null )
-				throw new Error( "Constructor can only be called once. Please use static GetInstance to retrieve and instance of BodyDefSettings" );
-			
 			instance = this;
 			
 			initialize( config );

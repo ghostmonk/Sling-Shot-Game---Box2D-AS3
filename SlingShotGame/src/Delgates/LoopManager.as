@@ -34,7 +34,7 @@ package Delgates
 		 * @param mouseActionDelegate
 		 * 
 		 */		
-		public function LoopManager( mouseActionDelegate:MouseActionDelegate )
+		public function LoopManager( mouseActionDelegate:MouseActionDelegate = null )
 		{
 			this.mouseActionDelegate = mouseActionDelegate;
 			world = World.Instance;
@@ -59,7 +59,9 @@ package Delgates
 		
 		private function OnEnterFrame( e:Event ) : void
 		{
-			mouseActionDelegate.Update();
+			
+			if( mouseActionDelegate != null )
+				mouseActionDelegate.Update();
 			
 			var physStart:uint = getTimer();
 			world.Step( 1 / 38, 10, 10 );

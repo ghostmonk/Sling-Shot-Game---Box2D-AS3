@@ -10,6 +10,8 @@ package Utils
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
+	import Config.FixtureDefSettings;
+	
 	import Delgates.MouseActionDelegate;
 	
 	import flash.display.Stage;
@@ -20,10 +22,10 @@ package Utils
 	 */
 	public class Ragdoll 
 	{
-		private static var Head:b2Body;
-		
-		public static function Simple( x:Number, y:Number, height:Number, mouseEnabled:Boolean = false ) : void
+		public static function Simple( x:Number, y:Number, height:Number, mouseEnabled:Boolean = false ) : Array
 		{
+			FixtureDefSettings.Instance.Density = 1.5;
+			
 			x = World.Meters( x );
 			y = World.Meters( y );
 			
@@ -44,11 +46,11 @@ package Utils
 			
 			var torso:b2Body = CreateBox( headSize, headSize, x, y + offset + headSize * 2 );
 			
-			Head = BodyMaker.Circle( headSize );
-			Head.SetPosition( new b2Vec2( x, y ) );
+			var head:b2Body = BodyMaker.Circle( headSize );
+			head.SetPosition( new b2Vec2( x, y ) );
 			jointDef.lowerAngle = -lightJointAngle / rad180;
 			jointDef.upperAngle = lightJointAngle / rad180;
-			jointDef.Initialize( Head, torso, new b2Vec2( x, y + headSize ) );
+			jointDef.Initialize( head, torso, new b2Vec2( x, y + headSize ) );
 			World.Instance.CreateJoint( jointDef );
 			
 			var leftLeg:b2Body = CreateBox( limbWidth, limbLength, x - legXOffset, legY  );
@@ -69,16 +71,17 @@ package Utils
 			jointDef.Initialize( torso, rightArm, new b2Vec2( x + headSize, armY ) );
 			World.Instance.CreateJoint( jointDef );
 			
-			StageRef.stage.addEventListener( MouseEvent.CLICK, ShootHead );
+			if( mouseEnabled ) 
+			{
+				MouseActionDelegate.MouseEnabled.push( head );
+				MouseActionDelegate.MouseEnabled.push( torso );
+				MouseActionDelegate.MouseEnabled.push( leftLeg );
+				MouseActionDelegate.MouseEnabled.push( rightLeg );
+				MouseActionDelegate.MouseEnabled.push( leftArm );
+				MouseActionDelegate.MouseEnabled.push( rightArm );
+			}
 			
-			if( !mouseEnabled ) return;
-			
-			MouseActionDelegate.MouseEnabled.push( Head );
-			MouseActionDelegate.MouseEnabled.push( torso );
-			MouseActionDelegate.MouseEnabled.push( leftLeg );
-			MouseActionDelegate.MouseEnabled.push( rightLeg );
-			MouseActionDelegate.MouseEnabled.push( leftArm );
-			MouseActionDelegate.MouseEnabled.push( rightArm );
+			return [ head, torso, leftLeg, rightLeg, leftArm, rightArm ];
 		}
 		
 		public static function Complex( pos:b2Vec2 ) : void
@@ -286,13 +289,6 @@ package Utils
 			var piece:b2Body = BodyMaker.Box( width, height );
 			piece.SetPosition( new b2Vec2( x, y ) );
 			return piece;
-		}
-		
-		private static function ShootHead( e:MouseEvent ) : void
-		{
-			//Head.ApplyForce( new b2Vec2( 5, 5 ), new b2Vec2( 100, 100 ) );
-			
-			Head.SetLinearVelocity( new b2Vec2( 400, -75 ) );
 		}
 	}
 }

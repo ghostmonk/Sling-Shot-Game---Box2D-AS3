@@ -29,9 +29,6 @@ package Config
 		 */		
 		public function FixtureDefSettings( config:XML = null )
 		{
-			if( instance != null )
-				throw new Error( "Constructor can only be called once. Please use static GetInstance to retrieve and instance of FixtureDefSettings" );
-			
 			instance = this;
 			
 			Initialize( config );
