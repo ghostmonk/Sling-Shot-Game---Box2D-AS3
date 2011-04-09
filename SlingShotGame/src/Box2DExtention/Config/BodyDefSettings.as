@@ -1,8 +1,8 @@
-package Config
+package Box2DExtention.Config
 {
 	import Box2D.Dynamics.b2Body;
 	
-	import Utils.World;
+	import Box2DExtention.World;
 
 	/**
 	 * Singleton used to configure new b2BodyDefs through the BodyFactory. 

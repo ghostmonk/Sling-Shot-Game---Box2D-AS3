@@ -1,4 +1,4 @@
-package Config
+package Box2DExtention.Config
 {
 	/**
 	 * Singleton used to configure new b2FixtureDefs through the BodyFactory. 

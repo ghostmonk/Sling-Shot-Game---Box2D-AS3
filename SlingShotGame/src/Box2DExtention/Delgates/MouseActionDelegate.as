@@ -1,4 +1,4 @@
-package Delgates
+package Box2DExtention.Delgates
 {
 	import Box2D.Collision.Shapes.b2Shape;
 	import Box2D.Collision.b2AABB;
@@ -11,7 +11,7 @@ package Delgates
 	
 	import General.Input;
 	
-	import Utils.World;
+	import Box2DExtention.World;
 	
 	import flash.display.Sprite;
 	

@@ -1,12 +1,12 @@
-package Config
+package Box2DExtention.Config
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
 	
-	import Utils.BodyMaker;
+	import Box2DExtention.Factories.BodyMaker;
 	import Utils.StageRef;
-	import Utils.World;
+	import Box2DExtention.World;
 	
 	import flash.display.Stage;
 
@@ -60,7 +60,7 @@ package Config
 			BodyDefSettings.Instance.Type = b2Body.b2_staticBody;
 			
 			//floor
-			BodyDefSettings.Instance.X = stageWidth * 0.5;
+			BodyDefSettings.Instance.X = width * 0.5;
 			BodyDefSettings.Instance.Y = stageHeight - ( thickness * 0.5 );
 			BodyMaker.Box( width, thickness );
 			
@@ -69,12 +69,13 @@ package Config
 			BodyMaker.Box( width, thickness );
 			
 			//left wall
-			BodyDefSettings.Instance.X = ( stageWidth * 0.5 ) - width;
+			BodyDefSettings.Instance.X = -width * 0.5;
 			BodyDefSettings.Instance.Y = stageHeight - height;
 			BodyMaker.Box( thickness, height );
 			
 			//right wall
-			BodyDefSettings.Instance.X = ( stageWidth * 0.5 ) + width;
+			BodyDefSettings.Instance.X = width * 0.5 + width;
+			BodyDefSettings.Instance.Y = stageHeight - height;
 			BodyMaker.Box( thickness, height );
 			
 			ResetConfig();

@@ -1,4 +1,4 @@
-package Utils
+package Box2DExtention.Factories
 {
 	import Box2D.Collision.b2Proxy;
 	import Box2D.Common.Math.b2Vec2;
@@ -21,6 +21,7 @@ package Utils
 	
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
+	import Box2DExtention.World;
 
 	public class JointMaker
 	{

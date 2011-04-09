@@ -1,4 +1,4 @@
-package Utils
+package Box2DExtention.Factories
 {
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;
@@ -10,8 +10,9 @@ package Utils
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	
-	import Config.BodyDefSettings;
-	import Config.FixtureDefSettings;
+	import Box2DExtention.Config.BodyDefSettings;
+	import Box2DExtention.Config.FixtureDefSettings;
+	import Box2DExtention.World;
 
 	public class BodyMaker
 	{

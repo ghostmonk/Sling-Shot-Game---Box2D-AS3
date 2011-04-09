@@ -1,4 +1,4 @@
-package Utils 
+package Box2DExtention.Factories 
 {	
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;
@@ -10,12 +10,13 @@ package Utils
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
-	import Config.FixtureDefSettings;
+	import Box2DExtention.Config.FixtureDefSettings;
 	
-	import Delgates.MouseActionDelegate;
+	import Box2DExtention.Delgates.MouseActionDelegate;
 	
 	import flash.display.Stage;
 	import flash.events.MouseEvent;
+	import Box2DExtention.World;
 
 	/**
 	 *@author ghostmonk - Apr 4, 2011

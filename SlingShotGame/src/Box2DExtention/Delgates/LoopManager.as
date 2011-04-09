@@ -1,4 +1,4 @@
-package Delgates
+package Box2DExtention.Delgates
 {
 	import Box2D.Dynamics.b2World;
 	
@@ -6,7 +6,7 @@ package Delgates
 	import General.FpsCounter;
 	
 	import Utils.StageRef;
-	import Utils.World;
+	import Box2DExtention.World;
 	
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -22,6 +22,7 @@ package Delgates
 	 */	
 	public class LoopManager
 	{
+		public static var StepRatio:Number = 38;
 		private var world:b2World;
 		private var mouseActionDelegate:MouseActionDelegate;
 		private var fpsCounter:FpsCounter;
@@ -64,7 +65,7 @@ package Delgates
 				mouseActionDelegate.Update();
 			
 			var physStart:uint = getTimer();
-			world.Step( 1 / 38, 10, 10 );
+			world.Step( 1 / StepRatio, 10, 10 );
 			world.ClearForces();
 			world.DrawDebugData();
 			

@@ -1,5 +1,7 @@
-package 
+package Utils 
 {	
+	import com.ghostmonk.ui.interactive.buttons.ClickableSprite;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
