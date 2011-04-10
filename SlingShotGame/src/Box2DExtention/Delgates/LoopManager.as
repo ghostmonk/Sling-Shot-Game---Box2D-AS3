@@ -47,8 +47,8 @@ package Box2DExtention.Delgates
 			if( value )
 			{
 				fpsCounter = new FpsCounter();
-				fpsCounter.x = 20;
-				fpsCounter.y = 20;
+				fpsCounter.x = 920;
+				fpsCounter.y = 80;
 				StageRef.stage.addChild( fpsCounter );
 			}
 			else

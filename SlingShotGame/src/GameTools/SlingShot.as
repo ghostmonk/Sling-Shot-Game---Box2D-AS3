@@ -21,6 +21,8 @@ package GameTools
 	import flash.text.TextFieldAutoSize;
 	import flash.utils.Timer;
 	
+	import flashx.textLayout.events.UpdateCompleteEvent;
+	
 	import org.osmf.events.TimeEvent;
 
 	/**
@@ -31,7 +33,10 @@ package GameTools
 		public static const SLING_RELEASE:String = "slingRelease";
 		public static const SHOT_COMPLETE:String = "shotComplete";
 		
-		private static const POWER:Number = 16;
+		private static const X_OFFSET:Number = 11.7;
+		private static const Y_OFFSET:Number = 3.5;	
+		private static const POWER:Number = 6.5;
+		
 		private var timer:Timer;
 		public var projectilePosition:b2Vec2 = new b2Vec2();
 		private var textBox:TextField;
@@ -41,16 +46,16 @@ package GameTools
 		private var xLimit:Number;
 		private var yLimit:Number;
 		
-		private var container:Sprite;
+		private var onUpdate:Function;
 		
-		public function SlingShot( xRange:Number, yRange:Number, container:Sprite )
+		public function SlingShot( xRange:Number, yRange:Number, onUpdate:Function )
 		{
-			this.xLimit = xRange * 0.5;
-			this.yLimit = yRange * 0.5;
-			this.container = container;
+			this.xLimit = -xRange;
+			this.yLimit = yRange;
+			this.onUpdate = onUpdate;
 			
 			graphics.beginFill( 0x000000, 0.1 );
-			graphics.drawRect( -xLimit, -yLimit, xRange, yRange ); 
+			graphics.drawRect( -xRange, 0, xRange, yRange ); 
 			graphics.endFill();
 			
 			textBox = new TextField();
@@ -65,6 +70,9 @@ package GameTools
 		{	
 			this.ragDoll = ragDoll;
 			this.projectile = ragDoll[1];
+			projectile.SetPosition( new b2Vec2( X_OFFSET - 1, Y_OFFSET + 1 ) );
+
+			projectile.SetType( b2Body.b2_staticBody );
 			addEventListener( MouseEvent.MOUSE_DOWN, OnMouseDown );
 		}
 		
@@ -78,13 +86,16 @@ package GameTools
 		private function OnMouseMove( e:MouseEvent ) : void
 		{
 			var M:Number = 10;
-			var xM:Number = -World.Meters( Math.max( -xLimit, Math.min( mouseX, xLimit ) ) ); 
-			var yM:Number = -World.Meters( Math.max( -yLimit, Math.min( mouseY, yLimit ) ) );
+			var xV:Number = World.Meters( Math.max( xLimit, Math.min( mouseX, 0 ) ) ); 
+			var yV:Number = World.Meters( Math.max( 0, Math.min( mouseY, yLimit ) ) );
 			
-			projectile.SetPosition( new b2Vec2( -xM + 6.5, -yM + 11 ) );
+			projectile.SetPosition( new b2Vec2( xV + X_OFFSET, yV + Y_OFFSET ) );
+			
+			for each( var part:b2Body in ragDoll )
+				part.SetAwake( true );
 				
-			trajectory.Set( xM * POWER, yM * POWER );
-			textBox.text = "x: " + xM * 15 + " y: " + yM * 15;
+			trajectory.Set( -xV * POWER, -yV * POWER );
+			textBox.text = "x: " + -xV * POWER + " y: " + -yV * POWER;
 		}
 		
 		private function OnMouseUp( e:MouseEvent ) : void
@@ -96,6 +107,7 @@ package GameTools
 			projectile.SetLinearVelocity( trajectory );
 			stage.removeEventListener( MouseEvent.MOUSE_UP, OnMouseUp ); 
 			stage.removeEventListener( MouseEvent.MOUSE_MOVE, OnMouseMove );
+			removeEventListener( MouseEvent.MOUSE_DOWN, OnMouseDown );
 			addEventListener( Event.ENTER_FRAME, OnEnterFrame );
 			
 			StartTimeout();
@@ -103,19 +115,13 @@ package GameTools
 		
 		private function StartTimeout() : void
 		{
-			timer = new Timer( 7000, 1 );
+			timer = new Timer( 5500, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, OnTimerComplete );
 			timer.start();
 		}
 		
 		private function OnTimerComplete( e:TimerEvent ) : void
 		{
-			/*for( var i:int = 0; i < World.Instance.GetBodyCount(); i++ )
-			{
-				var body:b2Body = World.Instance.GetBodyList();
-				body.SetActive( false );
-				body.SetAwake( false );
-			}*/
 			timer = null;
 			removeEventListener( Event.ENTER_FRAME, OnEnterFrame );
 			dispatchEvent( new Event( SHOT_COMPLETE ) );
@@ -123,9 +129,7 @@ package GameTools
 		
 		private function OnEnterFrame( e:Event ) : void
 		{
-			var offset:int = 100;
-			container.x = ( -projectile.GetWorldCenter().x * 30 ) + 400;
-			//container.y = ( -projectile.GetWorldCenter().y * 30 ) + 330;
+			onUpdate( projectile.GetWorldCenter() );
 		}
 	}
 }

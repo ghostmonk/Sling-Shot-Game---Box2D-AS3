@@ -5,29 +5,32 @@ package Box2DExtention.Config
 	import Box2D.Dynamics.b2World;
 	
 	import Box2DExtention.Factories.BodyMaker;
-	import Utils.StageRef;
 	import Box2DExtention.World;
+	
+	import Utils.StageRef;
 	
 	import flash.display.Stage;
 
 	public class BodyFactory
 	{
-		private var fixtureDefs:Object = {};
-		private var bodyDefs:Object = {};
-		private var blueprints:Object = {};
+		private static var fixtureDefs:Object = {};
+		private static var bodyDefs:Object = {};
+		private static var blueprints:Object = {};
 		
-		public function BodyFactory( config:XML )
+		public static function ParseConfig( config:XML ) : void
 		{
 			ParseDefaultSettings( config.defaultSettings[0] );
 			CacheFixtureDefs( config.fixtureDef );
 			CacheBodyDefs( config.bodyDef); 
 			CacheBluePrints( config.blueprint );
 			CreateStructures( config.structure );
-			fixtureDefs = null;
-			bodyDefs = null;
+			fixtureDefs = {};
+			bodyDefs = {};
+			blueprints = {};
+			config = null;
 		}
 		
-		private function ParseDefaultSettings( config:XML ) : void
+		private static function ParseDefaultSettings( config:XML ) : void
 		{
 			if( config == null ) return;
 			
@@ -37,7 +40,7 @@ package Box2DExtention.Config
 			CreateBoundary( config.boundary[0] );
 		}
 		
-		private function WorldSettings( config:XML ) : void
+		private static function WorldSettings( config:XML ) : void
 		{
 			if( config == null ) return;
 			
@@ -47,7 +50,7 @@ package Box2DExtention.Config
 			World.Instance.SetGravity( vec );
 		}
 		
-		private function CreateBoundary( config:XML ) : void
+		private static function CreateBoundary( config:XML ) : void
 		{
 			if( config == null ) return;
 			
@@ -81,7 +84,7 @@ package Box2DExtention.Config
 			ResetConfig();
 		}
 		
-		private function CacheFixtureDefs( list:XMLList ) : void
+		private static function CacheFixtureDefs( list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -89,7 +92,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CacheBodyDefs( list:XMLList ) : void
+		private static function CacheBodyDefs( list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -97,7 +100,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CacheBluePrints( list:XMLList ) : void
+		private static function CacheBluePrints( list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -105,7 +108,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CreateStructures( list:XMLList ) : void
+		private static function CreateStructures( list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -114,7 +117,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CheckForBluePrint( node:XML ) : void
+		private static function CheckForBluePrint( node:XML ) : void
 		{
 			var bluePrint:XML = XML( blueprints[ node.@blueprintId.toString() ] ).copy();
 			if( !bluePrint ) return;
@@ -123,7 +126,7 @@ package Box2DExtention.Config
 			ParseNode( bluePrint );
 		}
 		
-		private function ParseNode( node:XML ) : void
+		private static function ParseNode( node:XML ) : void
 		{
 			CreateBoxes( node, node.box );
 			CreateCircles( node, node.circle );
@@ -131,7 +134,7 @@ package Box2DExtention.Config
 			CreateTrapezoids( node, node.trapezoid );
 		}
 		
-		private function CreateBoxes( structureNode:XML, list:XMLList ) : void
+		private static function CreateBoxes( structureNode:XML, list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -141,7 +144,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CreateCircles( structureNode:XML, list:XMLList ) : void
+		private static function CreateCircles( structureNode:XML, list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -151,7 +154,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CreateTriangles( structureNode:XML, list:XMLList ) : void
+		private static function CreateTriangles( structureNode:XML, list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -161,7 +164,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function CreateTrapezoids( structureNode:XML, list:XMLList ) : void
+		private static function CreateTrapezoids( structureNode:XML, list:XMLList ) : void
 		{
 			for each( var node:XML in list )
 			{
@@ -171,7 +174,7 @@ package Box2DExtention.Config
 			}
 		}
 		
-		private function PreserveStructurePositions( structureNode:XML, bodyNode:XML ) : void
+		private static function PreserveStructurePositions( structureNode:XML, bodyNode:XML ) : void
 		{
 			ResolveNodeSettings( structureNode );
 			var x:Number = World.Meters( bodyNode.@x );
@@ -183,34 +186,34 @@ package Box2DExtention.Config
 			BodyDefSettings.Instance.Y += y;
 		}
 		
-		private function ResolveNodeSettings( node:XML ) : void
+		private static function ResolveNodeSettings( node:XML ) : void
 		{
 			CheckForCachedBodyDef( node.@bodyDefId );
 			CheckForCachedFixtureDef( node.@fixtureDefId );
 			SetInlineValues( node );
 		}
 		
-		private function CheckForCachedFixtureDef( id:String ) : void
+		private static function CheckForCachedFixtureDef( id:String ) : void
 		{
 			if( id == "" || id == null ) return;
 			var config:XML = fixtureDefs[ id ] as XML;
 			FixtureDefSettings.Instance.Configure( config );
 		}
 		
-		private function CheckForCachedBodyDef( id:String ) : void
+		private static function CheckForCachedBodyDef( id:String ) : void
 		{
 			if( id == "" || id == null ) return;
 			var config:XML = bodyDefs[ id ] as XML;
 			BodyDefSettings.Instance.Configure( config );
 		}
 		
-		private function SetInlineValues( node:XML ) : void
+		private static function SetInlineValues( node:XML ) : void
 		{
 			BodyDefSettings.Instance.Configure( node );
 			FixtureDefSettings.Instance.Configure( node );
 		}
 		
-		private function ResetConfig() : void
+		private static function ResetConfig() : void
 		{
 			BodyDefSettings.Instance.Reset();
 			FixtureDefSettings.Instance.Reset();
