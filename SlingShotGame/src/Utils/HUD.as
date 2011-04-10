@@ -21,9 +21,10 @@ package Utils
 			instance = this;
 			Reset();
 			score = 0;
+			scoreTxt.text = score.toString();
 		}
 		
-		public static function Instance() : HUD
+		public static function get Instance() : HUD
 		{
 			return instance || new HUD();
 		}

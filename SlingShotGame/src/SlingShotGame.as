@@ -47,7 +47,7 @@ package
 			loopManager = new LoopManager();
 			loopManager.ShowFpsCounter = true;
 			
-			hud = new HUD();
+			hud = HUD.Instance;
 			stage.addChild( hud );
 			
 			trajectoryPath = new TrajectoryPath();
@@ -78,8 +78,9 @@ package
 		{
 			camera.enable();
 			camera.Zoom( 1.4, 1 );
+			oldX = 0;
 			
-			hud.RemoveMan();
+			HUD.Instance.RemoveMan();
 			TimedCallback.create( CheckGameStatus, 500 );
 		}
 		
@@ -139,9 +140,13 @@ package
 			addChild( slingShot );
 		}
 		
+		private var oldX:int = 0;
+		
 		private function UpdateContainer( vec:b2Vec2 ) : void
 		{
 			trajectoryPath.Update( new Point( vec.x * 30, vec.y * 30 ) );
+			hud.AddToScore( Math.max( 0, vec.x - oldX ) );
+			oldX = vec.x;
 		}
 	}
 }
