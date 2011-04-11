@@ -1,5 +1,6 @@
 package GameTools 
 {	
+	import Utils.KeyPressController;
 	import Utils.StageRef;
 	
 	import caurina.transitions.Tweener;
@@ -28,6 +29,8 @@ package GameTools
 		private var scaleEater:Sprite;
 		private var scrollDelta:int;
 		
+		private var keyController:KeyPressController;
+		
 		public function Camera( container:Sprite, min:int, max:int )
 		{
 			this.container = container;
@@ -38,6 +41,10 @@ package GameTools
 			StageRef.stage.addChild( scaleEater );
 			scaleEater.addChild( container );
 			startY = scaleEater.y;
+			
+			keyController = KeyPressController.Instance;
+			keyController.addEventListener( KeyPressController.KEY_PRESS, OnKeyDown );
+			keyController.addEventListener( KeyboardEvent.KEY_UP, OnKeyUp );
 			
 			enable();
 		}
@@ -63,13 +70,12 @@ package GameTools
 		
 		public function enable() : void
 		{
-			StageRef.stage.addEventListener( KeyboardEvent.KEY_DOWN, OnKeyDown );	
+			keyController.Enable();	
 		}
 		
 		public function disable() : void
 		{
-			StageRef.stage.removeEventListener( KeyboardEvent.KEY_DOWN, OnKeyDown );
-			StageRef.stage.removeEventListener( KeyboardEvent.KEY_UP, OnKeyUp );
+			keyController.Disable();
 			StageRef.stage.removeEventListener( Event.ENTER_FRAME, OnEnterFrame );
 		}
 		
@@ -89,15 +95,11 @@ package GameTools
 			
 			scrollDelta = e.keyCode == RIGHT ? 25 : -25;
 			
-			StageRef.stage.removeEventListener( KeyboardEvent.KEY_DOWN, OnKeyDown );
-			StageRef.stage.addEventListener( KeyboardEvent.KEY_UP, OnKeyUp );
 			StageRef.stage.addEventListener( Event.ENTER_FRAME, OnEnterFrame );				
 		}
 		
 		private function OnKeyUp( e:KeyboardEvent ) : void
 		{
-			StageRef.stage.addEventListener( KeyboardEvent.KEY_DOWN, OnKeyDown );
-			StageRef.stage.removeEventListener( KeyboardEvent.KEY_UP, OnKeyUp );
 			StageRef.stage.removeEventListener( Event.ENTER_FRAME, OnEnterFrame );
 		}
 		

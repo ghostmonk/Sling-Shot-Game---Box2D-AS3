@@ -9,6 +9,7 @@ package
 	import Pages.TitleScreen;
 	
 	import Utils.HUD;
+	import Utils.KeyPressController;
 	import Utils.StageRef;
 	
 	import com.ghostmonk.utils.GridMaker;
@@ -18,6 +19,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 
 	[SWF(width="1100", height="500", pageTitle="Angry Bairds", frameRate=100, backgroundColor=0x333333)]
@@ -40,6 +42,8 @@ package
 			titleScreen = new TitleScreen();
 			titleScreen.addEventListener( TitleScreen.START_GAME, OnStartGameStart );
 			addChild( titleScreen );
+			
+			KeyPressController.Instance.addEventListener( KeyPressController.KEY_PRESS, OnKeyPress );
 		}
 		
 		private function CreateControlPanel() : void
@@ -120,6 +124,21 @@ package
 			addChild( levelChooser );
 			
 			levelChooser.BuildIn();
+		}
+		
+		private function OnKeyPress( e:KeyboardEvent ) : void
+		{
+			if( e.keyCode != 32 ) return;
+			
+			if( controlPanel.IsActive ) 
+			{
+				controlPanel.BuildOut();
+				return;
+			}
+			
+			stage.addChild( controlPanel );
+			controlPanel.Title = Resources.Pause;
+			controlPanel.BuildIn();
 		}
 	}
 }

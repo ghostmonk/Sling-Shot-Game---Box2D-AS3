@@ -24,12 +24,17 @@ package Pages
 		private var menu:ClickableSprite;
 		private var close:ClickableSprite;
 		
+		private var isActive:Boolean;
+		
 		public function ControlPanel()
 		{
 			reload = new ClickableSprite( reloadBtn, OnReload );
 			next = new ClickableSprite( nextBtn, OnNext );
 			menu = new ClickableSprite( menuBtn, OnMenu );
 			close = new ClickableSprite( closeBtn, OnClose );
+			
+			isActive = false;
+			
 			disable();
 			
 			reloadBtn.title.text = Resources.Reload;
@@ -37,8 +42,14 @@ package Pages
 			menuBtn.title.text = Resources.Menu;
 		}
 		
+		public function get IsActive() : Boolean
+		{
+			return isActive;
+		}
+		
 		public function BuildIn() : void
 		{
+			isActive = true;
 			alpha = 0;
 			Tweener.addTween( this, { alpha:1, time:0.3, transition:Equations.easeNone,
 				onComplete : function() : void
@@ -49,6 +60,7 @@ package Pages
 		
 		public function BuildOut() : void
 		{
+			isActive = false;
 			disable();
 			Tweener.addTween( this, { alpha:0, time:0.3, transition:Equations.easeNone,
 				onComplete : function() : void
