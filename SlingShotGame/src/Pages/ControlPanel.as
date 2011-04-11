@@ -31,6 +31,10 @@ package Pages
 			menu = new ClickableSprite( menuBtn, OnMenu );
 			close = new ClickableSprite( closeBtn, OnClose );
 			disable();
+			
+			reloadBtn.title.text = Resources.Reload;
+			nextBtn.title.text = Resources.Next;
+			menuBtn.title.text = Resources.Menu;
 		}
 		
 		public function BuildIn() : void
@@ -82,12 +86,12 @@ package Pages
 		
 		private function OnNext( e:MouseEvent ) : void
 		{	
-			dispatchEvent( new ControlPanelEvent( ControlPanelEvent.RELOAD ) );
+			dispatchEvent( new ControlPanelEvent( ControlPanelEvent.NEXT_LEVEL ) );
 		}
 		
 		private function OnMenu( e:MouseEvent ) : void
 		{
-			dispatchEvent( new ControlPanelEvent( ControlPanelEvent.RELOAD ) );	
+			dispatchEvent( new ControlPanelEvent( ControlPanelEvent.RETURN_TO_MENU ) );	
 		}
 		
 		private function OnClose( e:MouseEvent ) : void

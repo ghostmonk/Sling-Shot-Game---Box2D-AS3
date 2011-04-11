@@ -10,6 +10,8 @@ package Pages
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.engine.EastAsianJustifier;
+	
+	import flashx.textLayout.utils.CharacterUtil;
 
 	/**
 	 *@author ghostmonk - Apr 10, 2011
@@ -36,9 +38,10 @@ package Pages
 			level2Badge = new ClickableSprite( badge2, OnChooseLevel2 );
 			level3Badge = new ClickableSprite( badge3, OnChooseLevel3 );
 			
-			badge1.title.text = "Level 1";
-			badge2.title.text = "Level 2";
-			badge3.title.text = "Level 3";
+			badge1.title.text = Resources.Level1;
+			badge2.title.text = Resources.Level2;
+			badge3.title.text = Resources.Level3;
+			title.text = Resources.ChooseLevel;
 				
 			titleYHome = title.y;
 			badge1XHome = badge1.x;

@@ -74,49 +74,36 @@ package Pages
 			camera = new Camera( this, -1300, 0 );
 		}
 		
+		public function NextLevel() : void
+		{
+			ClearLevel();
+			if( currentLevel == 3 )
+				StartLevel( currentLevel );
+			else
+				StartLevel( ++currentLevel );
+		}
+		
 		public function StartLevel( level:int ) : void
 		{
+			hud.visible = true;
 			currentLevel = level;
+			
 			switch( level )
 			{
 				case 1: currentLevelConfig = level1; break;
 				case 2: currentLevelConfig = level2; break;
 				case 3: currentLevelConfig = level3; break;
 			}
+			ClearLevel();
 			CreateLevel( GetLevelConfig( currentLevelConfig ) );
 			NewMan();
 		}
 		
 		public function ResetGame() : void
 		{
-			trajectoryPath.Clear();
-			clearTrajectory = true;
-			var body:b2Body = World.Instance.GetBodyList();
-			while( body )
-			{
-				World.Instance.DestroyBody( body );
-				body = World.Instance.GetBodyList();	
-			}
+			ClearLevel();
 			CreateLevel( GetLevelConfig( currentLevelConfig ) );
-		}
-		
-		private function OnSlingRelease( e:Event ) : void
-		{
-			if( clearTrajectory ) trajectoryPath.Clear();
-			clearTrajectory = !clearTrajectory;
-			
-			camera.Zoom( 0.7, 0.46 );
-			camera.disable();
-		}
-		
-		private function OnShotComplete( e:Event ) : void
-		{
-			camera.enable();
-			camera.Zoom( 1.4, 1 );
-			oldX = 0;
-			
-			HUD.Instance.RemoveMan();
-			TimedCallback.create( CheckGameStatus, 500 );
+			NewMan();
 		}
 		
 		private function CheckGameStatus() : void
@@ -143,6 +130,19 @@ package Pages
 			slingShot.Load( currentRagDoll );
 		}
 		
+		private function ClearLevel() : void
+		{
+			hud.Reset();
+			trajectoryPath.Clear();
+			clearTrajectory = true;
+			var body:b2Body = World.Instance.GetBodyList();
+			while( body )
+			{
+				World.Instance.DestroyBody( body );
+				body = World.Instance.GetBodyList();	
+			}
+		}
+		
 		private function CreateLevel( xml:XML ) : void
 		{
 			BodyFactory.ParseConfig( xml );
@@ -164,6 +164,25 @@ package Pages
 			trajectoryPath.Update( new Point( vec.x * 30, vec.y * 30 ) );
 			hud.AddToScore( Math.max( 0, vec.x - oldX ) );
 			oldX = vec.x;
+		}
+		
+		private function OnSlingRelease( e:Event ) : void
+		{
+			if( clearTrajectory ) trajectoryPath.Clear();
+			clearTrajectory = !clearTrajectory;
+			
+			camera.Zoom( 0.7, 0.46 );
+			camera.disable();
+		}
+		
+		private function OnShotComplete( e:Event ) : void
+		{
+			camera.enable();
+			camera.Zoom( 1.4, 1 );
+			oldX = 0;
+			
+			HUD.Instance.RemoveMan();
+			TimedCallback.create( CheckGameStatus, 500 );
 		}
 		
 		private var gridSprite:Sprite = new Sprite();

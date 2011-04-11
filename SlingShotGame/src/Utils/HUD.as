@@ -22,6 +22,8 @@ package Utils
 			Reset();
 			score = 0;
 			scoreTxt.text = score.toString();
+			bairdsLabel.text = Resources.BairdsLeft;
+			scoreLabel.text = Resources.Score;
 		}
 		
 		public static function get Instance() : HUD

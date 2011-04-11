@@ -8,6 +8,7 @@ package
 	import Pages.LevelChooser;
 	import Pages.TitleScreen;
 	
+	import Utils.HUD;
 	import Utils.StageRef;
 	
 	import com.ghostmonk.utils.GridMaker;
@@ -69,24 +70,28 @@ package
 		
 		private function CreateNewGame( level:int ) : void
 		{
-			gamePage = new GamePage();
-			gamePage.addEventListener( LevelEvent.LEVEL_SUCCESS, OnLevelSuccess );
-			gamePage.addEventListener( LevelEvent.LEVEL_FAILED, OnLevelFailed );
-			gamePage.Init();
+			if( gamePage == null )
+			{
+				gamePage = new GamePage();
+				gamePage.addEventListener( LevelEvent.LEVEL_SUCCESS, OnLevelSuccess );
+				gamePage.addEventListener( LevelEvent.LEVEL_FAILED, OnLevelFailed );
+				gamePage.Init();
+			}
+			gamePage.visible = true;
 			gamePage.StartLevel( level );
 		}
 		
 		private function OnLevelSuccess( e:LevelEvent ) : void
 		{
 			stage.addChild( controlPanel );
-			controlPanel.Title = "YOU WIN!!";
+			controlPanel.Title = Resources.YouWin;
 			controlPanel.BuildIn();
 		}
 		
 		private function OnLevelFailed( e:LevelEvent ) : void
 		{
 			stage.addChild( controlPanel );
-			controlPanel.Title = "TRY AGAIN?";
+			controlPanel.Title = Resources.TryAgain;
 			controlPanel.BuildIn();	
 		}
 		
@@ -97,17 +102,24 @@ package
 		
 		private function OnNextLevel( e:ControlPanelEvent ) : void
 		{
-			
+			controlPanel.BuildOut();
+			gamePage.NextLevel();
 		}
 		
 		private function OnReloadLevel( e:ControlPanelEvent ) : void
 		{
-			
+			controlPanel.BuildOut();
+			gamePage.ResetGame();
 		}
 		
 		private function OnReturnToMenu( e:ControlPanelEvent ) : void
 		{
+			controlPanel.BuildOut();
+			HUD.Instance.visible = false;
+			gamePage.visible = false;
+			addChild( levelChooser );
 			
+			levelChooser.BuildIn();
 		}
 	}
 }
