@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level2>
+	
+	<defaultSettings>
+		
+		<world name="slingShot" meterPixels="30" xGravity="0" yGravity="10" />
+		
+		<boundary width="7000" height="8000" />
+		
+		<fixtureDef density="0.1" friction="0.5" restitution="0.0" isSensor="false" />
+		
+		<bodyDef x="0.0" y="0.0" type="dynamic"
+            active="true" allowSleep="true" awake="true" bullet="false" fixedRotation="false" inertiaScale="1.0"  
+            angle="0.0" angularDamping="0.0" angularVelocity="0.0" 
+            linearDamping="0.0" linearVelocityX="0.0" linearVelocityY="0.0" />
+			
+	</defaultSettings>
+	
+	<structure name="Base" x="1760" y="309">
+		<box x="0" y="0" width="300" height="300" />
+	</structure>
+	
+</level2>

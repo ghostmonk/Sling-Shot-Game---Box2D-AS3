@@ -40,7 +40,6 @@ package GameTools
 			startY = scaleEater.y;
 			
 			enable();
-			CreateGrid();
 		}
 		
 		public function Pan( x:Number ) : void
@@ -74,16 +73,6 @@ package GameTools
 			StageRef.stage.removeEventListener( Event.ENTER_FRAME, OnEnterFrame );
 		}
 		
-		private function CreateGrid() : void
-		{
-			var sprite:Sprite = new Sprite();
-			sprite.graphics.drawRect( 0, 0, container.width, container.height * 2 );
-			GridMaker.lineStyle( 0, 0xFFFFFF, 0.3 );
-			GridMaker.drawGrid( sprite, 50, 100 );
-			sprite.y = -9000;
-			container.addChild( sprite );
-		}
-		
 		private function OnKeyDown( e:KeyboardEvent ) : void
 		{
 			if( e.keyCode == ZOOM )
@@ -115,7 +104,6 @@ package GameTools
 		private function OnEnterFrame( e:Event ) : void
 		{
 			Pan( container.x + scrollDelta );
-			//container.x = Math.min( max, Math.max( min, container.x + scrollDelta ) );
 		}
 	}
 }
