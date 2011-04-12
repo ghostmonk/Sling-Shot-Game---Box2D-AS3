@@ -1,5 +1,8 @@
 package
 {	
+	import Box2DExtention.CustomCollisionListener;
+	import Box2DExtention.World;
+	
 	import Events.ControlPanelEvent;
 	import Events.LevelEvent;
 	
@@ -12,7 +15,6 @@ package
 	import Utils.KeyPressController;
 	import Utils.StageRef;
 	
-	import com.ghostmonk.utils.GridMaker;
 	import com.ghostmonk.utils.TimedCallback;
 	
 	import flash.display.Sprite;
@@ -20,7 +22,6 @@ package
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
 
 	[SWF(width="1100", height="500", pageTitle="Angry Bairds", frameRate=100, backgroundColor=0x333333)]
 	public class SlingShotGame extends Sprite

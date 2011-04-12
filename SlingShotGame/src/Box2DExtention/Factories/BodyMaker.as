@@ -13,6 +13,8 @@ package Box2DExtention.Factories
 	import Box2DExtention.Config.BodyDefSettings;
 	import Box2DExtention.Config.FixtureDefSettings;
 	import Box2DExtention.World;
+	
+	import com.ghostmonk.utils.ObjectFuncs;
 
 	public class BodyMaker
 	{
@@ -75,6 +77,10 @@ package Box2DExtention.Factories
 			fixtureDef.friction = fixtureConf.Friction;
 			fixtureDef.isSensor = fixtureConf.IsSensor;
 			fixtureDef.restitution = fixtureConf.Restitution;
+			fixtureDef.filter.groupIndex = fixtureConf.GroupIndex;
+			fixtureDef.filter.maskBits = fixtureConf.MaskBits;
+			fixtureDef.filter.categoryBits = fixtureConf.CategoryBits;
+			fixtureDef.userData = ObjectFuncs.clone( fixtureConf.UserData );
 			
 			return fixtureDef;
 		}

@@ -16,7 +16,7 @@
 			
 	</defaultSettings>
 	
-	<structure name="Base" x="1760" y="309" fixtureDefId="dense">
+	<structure name="Base" x="1760" y="309" fixtureDefId="dense" userDataId="basic">
 		<box x="0" y="147" width="7" height="35" />
 		<box x="100" y="147" width="7" height="35" />
 		<box x="200" y="147" width="7" height="35" />
@@ -25,21 +25,15 @@
 		<box x="500" y="147" width="7" height="35" />
 	</structure>
 	
-	<structure name="BaseRoof" x="1805" y="413" fixtureDefId="dense">
+	<structure name="BaseRoof" x="1805" y="413" fixtureDefId="dense" userDataId="basic">
 	   <box x="0" y="0" width="52" height="7" />
 	   <box x="104" y="0" width="49" height="7" />
 	   <box x="205" y="0" width="49" height="7" />
 	   <box x="306" y="0" width="49" height="7" />
 	   <box x="410" y="0" width="52" height="7" />
 	</structure>
-	
-	<structure name="LeftColumn" x="1760" y="327" blueprintId="ColumnBlock" />
-    <structure name="CenterTop" x="1960" y="155" blueprintId="ColumnBlock" />
-    <structure name="CenterMiddle" x="1960" y="241" blueprintId="ColumnBlock" />
-    <structure name="CenterBottom" x="1960" y="327" blueprintId="ColumnBlock" />
-    <structure name="RightColumn" x="2160" y="327" blueprintId="ColumnBlock" />
     
-    <structure name="Steeples" x="1810" y="87">
+    <structure name="Steeples" x="1810" y="87" userDataId="basic">
         <trapezoid x="0" y="202" topWidth="50" bottomWidth="113" height="60" />
         <trapezoid x="200" y="0" topWidth="10" bottomWidth="113" height="120" />
         <trapezoid x="400" y="202" topWidth="50" bottomWidth="113" height="60" />
@@ -48,12 +42,20 @@
         <circle name="Item02" x="401" y="288" radius="30" density="0" />
     </structure>
 	
-	<blueprint id="ColumnBlock" fixtureDefId="dense">
+	<structure name="LeftColumn" x="1760" y="327" blueprintId="ColumnBlock" />
+    <structure name="CenterTop" x="1960" y="155" blueprintId="ColumnBlock" />
+    <structure name="CenterMiddle" x="1960" y="241" blueprintId="ColumnBlock" />
+    <structure name="CenterBottom" x="1960" y="327" blueprintId="ColumnBlock" />
+    <structure name="RightColumn" x="2160" y="327" blueprintId="ColumnBlock" />
+	
+	<blueprint id="ColumnBlock" fixtureDefId="dense" userDataId="basic">
 	   <box x="50" y="0" width="57" height="7" />
        <box x="0" y="43" width="7" height="35" />
        <box x="100" y="43" width="7" height="35" />
 	</blueprint>
 	
 	<fixtureDef id="dense" density="10" />
+	<userData id="basic" strength="3" isTarget="false" />
+	<userData id="target" strength="10" isTarget="true" />
 	
 </level1>

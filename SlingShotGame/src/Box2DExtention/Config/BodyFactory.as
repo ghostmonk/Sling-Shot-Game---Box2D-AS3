@@ -9,6 +9,9 @@ package Box2DExtention.Config
 	
 	import Utils.StageRef;
 	
+	import com.ghostmonk.utils.ObjectFuncs;
+	import com.ghostmonk.utils.XMLUtils;
+	
 	import flash.display.Stage;
 
 	public class BodyFactory
@@ -16,17 +19,23 @@ package Box2DExtention.Config
 		private static var fixtureDefs:Object = {};
 		private static var bodyDefs:Object = {};
 		private static var blueprints:Object = {};
+		private static var userDatas:Object = {};
+		
+		public static var Structures:Array = [];
 		
 		public static function ParseConfig( config:XML ) : void
 		{
+			Structures = [];
 			ParseDefaultSettings( config.defaultSettings[0] );
 			CacheFixtureDefs( config.fixtureDef );
 			CacheBodyDefs( config.bodyDef); 
 			CacheBluePrints( config.blueprint );
+			CacheUserDatas( config.userData );
 			CreateStructures( config.structure );
 			fixtureDefs = {};
 			bodyDefs = {};
 			blueprints = {};
+			userDatas = {};
 			config = null;
 		}
 		
@@ -108,6 +117,14 @@ package Box2DExtention.Config
 			}
 		}
 		
+		private static function CacheUserDatas( list:XMLList ) : void
+		{
+			for each( var node:XML in list )
+			{
+				userDatas[ node.@id.toString() ] = XMLUtils.SimpleXmlToObject( node );
+			}
+		}
+		
 		private static function CreateStructures( list:XMLList ) : void
 		{
 			for each( var node:XML in list )
@@ -120,7 +137,7 @@ package Box2DExtention.Config
 		private static function CheckForBluePrint( node:XML ) : void
 		{
 			var bluePrint:XML = XML( blueprints[ node.@blueprintId.toString() ] ).copy();
-			if( !bluePrint ) return;
+			if( !bluePrint || bluePrint.toString() == "" ) return;
 			bluePrint.@['x'] = node.@x;
 			bluePrint.@['y'] = node.@y;
 			ParseNode( bluePrint );
@@ -139,7 +156,8 @@ package Box2DExtention.Config
 			for each( var node:XML in list )
 			{
 				PreserveStructurePositions( structureNode, node );
-				BodyMaker.Box( World.Meters( node.@width ), World.Meters( node.@height ) );
+				var body:b2Body = BodyMaker.Box( World.Meters( node.@width ), World.Meters( node.@height ) );
+				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -149,7 +167,8 @@ package Box2DExtention.Config
 			for each( var node:XML in list )
 			{
 				PreserveStructurePositions( structureNode, node );
-				BodyMaker.Circle( World.Meters( node.@radius ) );
+				var body:b2Body = BodyMaker.Circle( World.Meters( node.@radius ) );
+				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -159,7 +178,8 @@ package Box2DExtention.Config
 			for each( var node:XML in list )
 			{
 				PreserveStructurePositions( structureNode, node );
-				BodyMaker.Triangle( World.Meters( node.@width ), World.Meters( node.@height ) );
+				var body:b2Body = BodyMaker.Triangle( World.Meters( node.@width ), World.Meters( node.@height ) );
+				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -169,7 +189,8 @@ package Box2DExtention.Config
 			for each( var node:XML in list )
 			{
 				PreserveStructurePositions( structureNode, node );
-				BodyMaker.Trapezoid( World.Meters( node.@topWidth ), World.Meters( node.@bottomWidth ), World.Meters( node.@height ) );
+				var body:b2Body = BodyMaker.Trapezoid( World.Meters( node.@topWidth ), World.Meters( node.@bottomWidth ), World.Meters( node.@height ) );
+				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -188,16 +209,16 @@ package Box2DExtention.Config
 		
 		private static function ResolveNodeSettings( node:XML ) : void
 		{
-			CheckForCachedBodyDef( node.@bodyDefId );
-			CheckForCachedFixtureDef( node.@fixtureDefId );
+			CheckForCachedBodyDef( node.@bodyDefId[0] );
+			CheckForCachedFixtureDef( node.@fixtureDefId[0], node.@userDataId[0] );
 			SetInlineValues( node );
 		}
 		
-		private static function CheckForCachedFixtureDef( id:String ) : void
+		private static function CheckForCachedFixtureDef( id:String, userDataId:String ) : void
 		{
-			if( id == "" || id == null ) return;
-			var config:XML = fixtureDefs[ id ] as XML;
-			FixtureDefSettings.Instance.Configure( config );
+			var config:XML = id != "" && id != null ? fixtureDefs[ id ] as XML : null;
+			var userData:Object = userDataId != null && userDataId != "" ? userDatas[ userDataId ] : null;
+			FixtureDefSettings.Instance.Configure( config, userData );
 		}
 		
 		private static function CheckForCachedBodyDef( id:String ) : void
@@ -210,7 +231,9 @@ package Box2DExtention.Config
 		private static function SetInlineValues( node:XML ) : void
 		{
 			BodyDefSettings.Instance.Configure( node );
-			FixtureDefSettings.Instance.Configure( node );
+			var userDataId:String = node.@userDataId;
+			var userData:Object = userDataId != null && userDataId != "" ? userDatas[ userDataId ] : null;
+			FixtureDefSettings.Instance.Configure( node, userData );
 		}
 		
 		private static function ResetConfig() : void

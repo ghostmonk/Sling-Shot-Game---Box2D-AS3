@@ -4,6 +4,7 @@ package Pages
 	import Box2D.Dynamics.b2Body;
 	
 	import Box2DExtention.Config.BodyFactory;
+	import Box2DExtention.CustomCollisionListener;
 	import Box2DExtention.Delgates.LoopManager;
 	import Box2DExtention.Factories.Ragdoll;
 	import Box2DExtention.World;
@@ -17,7 +18,6 @@ package Pages
 	import Utils.HUD;
 	import Utils.StageRef;
 	
-	import com.ghostmonk.ui.graveyard.idecomposed.Switch;
 	import com.ghostmonk.utils.GridMaker;
 	import com.ghostmonk.utils.TimedCallback;
 	
@@ -51,6 +51,8 @@ package Pages
 		private var hud:HUD;
 		private var slingShot:SlingShot;
 		private var currentRagDoll:Array = [];
+		
+		public var UpdatePath:Boolean = true;
 		private var trajectoryPath:TrajectoryPath;
 		
 		private var oldX:int = 0;
@@ -58,8 +60,12 @@ package Pages
 		private var clearTrajectory:Boolean = true;
 		private var camera:Camera;
 		
+		private var contactListener:CustomCollisionListener;
+		
 		public function Init() : void
 		{
+			contactListener = new CustomCollisionListener( this );
+			World.Instance.SetContactListener( contactListener );
 			World.DebugView( this );
 			loopManager = new LoopManager();
 			loopManager.ShowFpsCounter = true;
@@ -122,6 +128,7 @@ package Pages
 		
 		private function NewMan() : void
 		{
+			UpdatePath = true;
 			for each( var body:b2Body in currentRagDoll )
 			{
 				World.Instance.DestroyBody( body );
@@ -161,13 +168,16 @@ package Pages
 		
 		private function UpdateContainer( vec:b2Vec2 ) : void
 		{
-			trajectoryPath.Update( new Point( vec.x * 30, vec.y * 30 ) );
+			if( UpdatePath )
+				trajectoryPath.Update( new Point( vec.x * 30, vec.y * 30 ) );
+			
 			hud.AddToScore( Math.max( 0, vec.x - oldX ) );
 			oldX = vec.x;
 		}
 		
 		private function OnSlingRelease( e:Event ) : void
 		{
+			contactListener.IsDisabled = false;
 			if( clearTrajectory ) trajectoryPath.Clear();
 			clearTrajectory = !clearTrajectory;
 			
@@ -177,6 +187,7 @@ package Pages
 		
 		private function OnShotComplete( e:Event ) : void
 		{
+			contactListener.IsDisabled = true;
 			camera.enable();
 			camera.Zoom( 1.4, 1 );
 			oldX = 0;

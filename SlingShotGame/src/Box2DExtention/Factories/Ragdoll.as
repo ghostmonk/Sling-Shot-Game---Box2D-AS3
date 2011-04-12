@@ -7,16 +7,16 @@ package Box2DExtention.Factories
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2FilterData;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
 	import Box2DExtention.Config.FixtureDefSettings;
-	
 	import Box2DExtention.Delgates.MouseActionDelegate;
+	import Box2DExtention.World;
 	
 	import flash.display.Stage;
 	import flash.events.MouseEvent;
-	import Box2DExtention.World;
 
 	/**
 	 *@author ghostmonk - Apr 4, 2011
@@ -26,6 +26,7 @@ package Box2DExtention.Factories
 		public static function Simple( x:Number, y:Number, height:Number, mouseEnabled:Boolean = false ) : Array
 		{
 			FixtureDefSettings.Instance.Density = 1.5;
+			FixtureDefSettings.Instance.GroupIndex = -7461234743182;
 			
 			x = World.Meters( x );
 			y = World.Meters( y );
@@ -81,6 +82,8 @@ package Box2DExtention.Factories
 				MouseActionDelegate.MouseEnabled.push( leftArm );
 				MouseActionDelegate.MouseEnabled.push( rightArm );
 			}
+			
+			FixtureDefSettings.Instance.Reset();
 			
 			return [ head, torso, leftLeg, rightLeg, leftArm, rightArm ];
 		}

@@ -1,5 +1,7 @@
 package Box2DExtention.Config
 {
+	import com.ghostmonk.utils.ObjectFuncs;
+
 	/**
 	 * Singleton used to configure new b2FixtureDefs through the BodyFactory. 
 	 *  
@@ -12,8 +14,14 @@ package Box2DExtention.Config
 		public var Friction:Number;
 		public var Restitution:Number;
 		public var IsSensor:Boolean;
+		public var GroupIndex:int;
+		public var MaskBits:uint;
+		public var CategoryBits:uint;
+		public var UserData:*;
 		
-		private var defaultSettings:Object = { density:0.1, friction:0.2, restitution:0.0, isSensor:false };
+		private var defaultSettings:Object = { 
+			density:0.1, friction:0.2, restitution:0.0, isSensor:false, 
+			groupIndex:0, maskBits:0xFFFF, categoryBits:0x0001 };
 		
 		private static var instance:FixtureDefSettings;
 		
@@ -52,12 +60,37 @@ package Box2DExtention.Config
 		 * @param config
 		 * 
 		 */		
-		public function Configure( config:XML ) : void
+		public function Configure( config:XML, userData:Object = null ) : void
 		{
+			UserData = ResolveUserData( userData );
+			
+			if( config == null ) config = new XML();
+			
 			Density = Num( config.@density, Density );
 			Friction = Num( config.@friction, Friction );
 			Restitution = Num( config.@restitution, Restitution );
 			IsSensor = Bool( config.@isSensor, IsSensor );
+			GroupIndex = Num( config.@groupIndex, GroupIndex );
+			MaskBits = Num( config.@maskBits, MaskBits );
+			CategoryBits = Num( config.@categoryBits, CategoryBits );
+		}
+		
+		private function ResolveUserData( userData:Object ) : Object
+		{
+			if( UserData == null && userData == null  ) 
+				return null;
+			
+			if( UserData == null ) 
+			{
+				return userData;	
+			}
+			
+			var output:Object = ObjectFuncs.clone( UserData );
+			for( var key:String in userData ) 
+			{
+				output[ key ] = userData[ key ];
+			}
+			return output;
 		}
 		
 		/**
@@ -69,9 +102,13 @@ package Box2DExtention.Config
 			Friction = defaultSettings.friction;
 			Restitution = defaultSettings.restitution;
 			IsSensor = defaultSettings.isSensor;
+			GroupIndex = defaultSettings.groupIndex;
+			MaskBits = defaultSettings.maskBits;
+			CategoryBits = defaultSettings.categoryBits;
+			UserData = defaultSettings.userData;
 		}
 		
-		private function Initialize( config:XML ) : void
+		private function Initialize( config:XML, userData:* = null ) : void
 		{
 			if( config == null ) return;
 			
@@ -79,6 +116,10 @@ package Box2DExtention.Config
 			defaultSettings.friction = Num( config.@friction, defaultSettings.friction );
 			defaultSettings.restitution = Num( config.@restitution, defaultSettings.restitution );
 			defaultSettings.isSensor = Bool( config.@isSensor, defaultSettings.isSensor );
+			defaultSettings.groupIndex = Num( config.@groupIndex, defaultSettings.groupIndex );
+			defaultSettings.maskBits = Num( config.@maskBits, defaultSettings.maskBits );
+			defaultSettings.categoryBits = Num( config.@categoryBits, defaultSettings.categoryBits );
+			defaultSettings.userData = userData;
 		}
 		
 		private static function Num( node:String, def:Number ) : Number
