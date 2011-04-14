@@ -24,10 +24,18 @@ package Pages
 		private var menu:ClickableSprite;
 		private var close:ClickableSprite;
 		
+		private var menuStartX:int;
+		private var reloadStartX:int;
+		private var nextStartX:int;
+		
 		private var isActive:Boolean;
 		
 		public function ControlPanel()
 		{
+			menuStartX = menuBtn.x;
+			reloadStartX = reloadBtn.x;
+			nextStartX = nextBtn.x;
+			
 			reload = new ClickableSprite( reloadBtn, OnReload );
 			next = new ClickableSprite( nextBtn, OnNext );
 			menu = new ClickableSprite( menuBtn, OnMenu );
@@ -37,9 +45,9 @@ package Pages
 			
 			disable();
 			
-			reloadBtn.title.text = Resources.Reload;
-			nextBtn.title.text = Resources.Next;
-			menuBtn.title.text = Resources.Menu;
+			reloadBtn.title.text = Resources.Reload.toUpperCase();
+			nextBtn.title.text = Resources.Next.toUpperCase();
+			menuBtn.title.text = Resources.Menu.toUpperCase();
 		}
 		
 		public function get IsActive() : Boolean
@@ -86,9 +94,66 @@ package Pages
 			close.disable();
 		}
 		
-		public function set Title( value:String ) : void
+		public function SetPause() : void
 		{
-			title.text = value;
+			Title = Resources.Pause;
+			
+			SetBtnState( close, true );
+			SetBtnState( next, false );
+			
+			RemoveNextBtn();
+		}
+		
+		public function SetWin() : void
+		{
+			Title = Resources.YouWin;
+			
+			SetBtnState( close, false );
+			SetBtnState( next, true );
+			
+			menuBtn.x = menuStartX;
+			nextBtn.x = nextStartX;
+			reloadBtn.x = reloadStartX;
+		}
+		
+		public function SetLose() : void
+		{
+			Title = Resources.TryAgain;
+			
+			SetBtnState( close, false );
+			SetBtnState( next, false );
+			
+			RemoveNextBtn();
+		}
+		
+		public function GameComplete() : void
+		{
+			Title = Resources.GameComplete;
+			
+			SetBtnState( close, false );
+			SetBtnState( next, false );
+			
+			RemoveNextBtn();
+		}
+		
+		private function RemoveNextBtn() : void
+		{
+			menuBtn.x = ( background.width - ( menuBtn.width * 2 + 30 ) ) * 0.5;
+			reloadBtn.x = menuBtn.x + menuBtn.width + 30;
+		}
+		
+		private function SetBtnState( btn:ClickableSprite, enable:Boolean ) : void
+		{
+			if( enable )
+				btn.enable();
+			else
+				btn.disable();
+			btn.view.visible = enable;
+		}
+		
+		private function set Title( value:String ) : void
+		{
+			title.text = value.toUpperCase();
 		}
 		
 		private function OnReload( e:MouseEvent ) : void

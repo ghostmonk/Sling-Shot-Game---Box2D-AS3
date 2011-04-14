@@ -17,6 +17,7 @@ package
 		public static var Pause:String;
 		public static var TryAgain:String;
 		public static var YouWin:String;
+		public static var GameComplete:String;
 		
 		public static var Menu:String;
 		public static var Reload:String;
@@ -38,13 +39,14 @@ package
 			Pause = "Pause";
 			TryAgain = "Try Again?";
 			YouWin = "You Win!!";
+			GameComplete = "Game Complete!"
 			
 			Menu = "Menu";
 			Reload = "Reload";
 			Next = "Next";
 			
-			BairdsLeft = "Bairds Left";
-			Score = "Score";
+			BairdsLeft = "Bairds Left:";
+			Score = "Score:";
 		}
 	}
 }

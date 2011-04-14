@@ -28,7 +28,8 @@ package Box2DExtention
 		 */		
 		public static function get Instance() : b2World
 		{
-			if( !world ) world = new b2World( GRAVITY, true );
+			if( !world ) 
+				world = new b2World( GRAVITY, true );
 			return world;
 		}
 		

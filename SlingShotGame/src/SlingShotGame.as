@@ -1,8 +1,5 @@
 package
 {	
-	import Box2DExtention.CustomCollisionListener;
-	import Box2DExtention.World;
-	
 	import Events.ControlPanelEvent;
 	import Events.LevelEvent;
 	
@@ -24,6 +21,7 @@ package
 	import flash.events.KeyboardEvent;
 
 	[SWF(width="1100", height="500", pageTitle="Angry Bairds", frameRate=100, backgroundColor=0x333333)]
+	[Frame ( factoryClass="Utils.GameLoader" ) ]
 	public class SlingShotGame extends Sprite
 	{
 		private var titleScreen:TitleScreen;
@@ -33,8 +31,13 @@ package
 		
 		public function SlingShotGame()
 		{
-			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
+			addEventListener( Event.ADDED_TO_STAGE, OnAddedToStage );
+		}
+		
+		private function OnAddedToStage( e:Event ) : void
+		{
+			removeEventListener( Event.ADDED_TO_STAGE, OnAddedToStage );
+			
 			StageRef.stage = stage;
 			Resources.SetLanguage( true );
 			
@@ -88,15 +91,22 @@ package
 		
 		private function OnLevelSuccess( e:LevelEvent ) : void
 		{
+			HUD.Instance.ScoreLeftOverMen();
+			levelChooser.Unlock( e.Level + 1 );
 			stage.addChild( controlPanel );
-			controlPanel.Title = Resources.YouWin;
+			
+			if( gamePage.currentLevel == 3 )
+				controlPanel.GameComplete();
+			else
+				controlPanel.SetWin();
+				
 			controlPanel.BuildIn();
 		}
 		
 		private function OnLevelFailed( e:LevelEvent ) : void
 		{
 			stage.addChild( controlPanel );
-			controlPanel.Title = Resources.TryAgain;
+			controlPanel.SetLose();
 			controlPanel.BuildIn();	
 		}
 		
@@ -138,7 +148,7 @@ package
 			}
 			
 			stage.addChild( controlPanel );
-			controlPanel.Title = Resources.Pause;
+			controlPanel.SetPause();
 			controlPanel.BuildIn();
 		}
 	}

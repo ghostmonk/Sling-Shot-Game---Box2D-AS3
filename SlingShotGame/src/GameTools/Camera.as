@@ -55,6 +55,12 @@ package GameTools
 			container.x = Math.min( max, Math.max( min, x ) );
 		}
 		
+		public function GameStartPan() : void
+		{
+			container.x = min;
+			Tweener.addTween( container, { x:0, y:0, time:1.5, delay:2, transition:"linear" } );
+		}
+		
 		public function Zoom( time:Number, scale:Number ) : void
 		{
 			Tweener.removeAllTweens();

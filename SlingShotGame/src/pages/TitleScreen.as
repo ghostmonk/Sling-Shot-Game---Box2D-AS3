@@ -15,8 +15,8 @@ package Pages
 		public function TitleScreen()
 		{
 			startGameBtn.addEventListener( MouseEvent.CLICK, OnStartGameCick );
-			titleClip.titleTxt.text = Resources.AngryBairds;
-			startGameLabel.text = Resources.StartGame;
+			titleClip.titleTxt.text = Resources.AngryBairds.toUpperCase();
+			startGameLabel.text = Resources.StartGame.toUpperCase();
 		}
 		
 		private function OnStartGameCick( e:MouseEvent ) : void

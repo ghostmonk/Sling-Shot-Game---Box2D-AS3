@@ -1,12 +1,16 @@
 package Box2DExtention.Delgates
 {
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
+	
+	import Box2DExtention.CustomCollisionListener;
+	import Box2DExtention.World;
 	
 	import General.FRateLimiter;
 	import General.FpsCounter;
 	
+	import Utils.HUD;
 	import Utils.StageRef;
-	import Box2DExtention.World;
 	
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -23,6 +27,11 @@ package Box2DExtention.Delgates
 	public class LoopManager
 	{
 		public static var StepRatio:Number = 38;
+		
+		public static const DeletionBodies:Array = [];
+		
+		private var callbacks:Array = [];
+		
 		private var world:b2World;
 		private var mouseActionDelegate:MouseActionDelegate;
 		private var fpsCounter:FpsCounter;
@@ -40,6 +49,11 @@ package Box2DExtention.Delgates
 			this.mouseActionDelegate = mouseActionDelegate;
 			world = World.Instance;
 			StageRef.stage.addEventListener( Event.ENTER_FRAME, OnEnterFrame );
+		}
+		
+		public function AddCallback( method:Function ) : void
+		{
+			callbacks.push( method );
 		}
 		
 		public function set ShowFpsCounter( value:Boolean ) : void
@@ -60,6 +74,10 @@ package Box2DExtention.Delgates
 		
 		private function OnEnterFrame( e:Event ) : void
 		{
+			for each( var body:b2Body in DeletionBodies )
+			{
+				World.Instance.DestroyBody( body );
+			}
 			
 			if( mouseActionDelegate != null )
 				mouseActionDelegate.Update();
@@ -68,6 +86,11 @@ package Box2DExtention.Delgates
 			world.Step( 1 / StepRatio, 10, 10 );
 			world.ClearForces();
 			world.DrawDebugData();
+			
+			for each( var method:Function in callbacks ) 
+			{
+				method();
+			}
 			
 			
 			if( fpsCounter ) 

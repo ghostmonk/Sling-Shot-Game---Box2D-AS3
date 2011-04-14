@@ -4,6 +4,7 @@ package Pages
 	
 	import caurina.transitions.Tweener;
 	
+	import com.ghostmonk.display.color.ColorConversion;
 	import com.ghostmonk.ui.interactive.buttons.ClickableSprite;
 	
 	import flash.display.Sprite;
@@ -35,13 +36,17 @@ package Pages
 		public function LevelChooser()
 		{
 			level1Badge = new ClickableSprite( badge1, OnChooseLevel1 );
-			level2Badge = new ClickableSprite( badge2, OnChooseLevel2 );
-			level3Badge = new ClickableSprite( badge3, OnChooseLevel3 );
 			
-			badge1.title.text = Resources.Level1;
-			badge2.title.text = Resources.Level2;
-			badge3.title.text = Resources.Level3;
-			title.text = Resources.ChooseLevel;
+			level2Badge = new ClickableSprite( badge2, OnChooseLevel2 );
+			Disable( level2Badge );
+			
+			level3Badge = new ClickableSprite( badge3, OnChooseLevel3 );
+			Disable( level3Badge );
+			
+			badge1.inner.title.text = Resources.Level1.toUpperCase();
+			badge2.inner.title.text = Resources.Level2.toUpperCase();
+			badge3.inner.title.text = Resources.Level3.toUpperCase();
+			title.text = Resources.ChooseLevel.toUpperCase();
 				
 			titleYHome = title.y;
 			badge1XHome = badge1.x;
@@ -82,6 +87,27 @@ package Pages
 			
 			badge3.x = badge3XHome;
 			Tweener.addTween( badge3, { x:badge3XOut, time:0.3 } );
+		}
+		
+		public function Unlock( level:int ) : void
+		{
+			if( level == 2 )
+				Enable( level2Badge );
+			
+			if( level == 3 )
+				Enable( level3Badge );
+		}
+		
+		private function Enable( clip:ClickableSprite ) : void
+		{
+			clip.enable();
+			clip.view.alpha = 1;
+		}
+		
+		private function Disable( clip:ClickableSprite ) : void
+		{
+			clip.disable();
+			clip.view.alpha = 0.3;
 		}
 		
 		private function OnChooseLevel1( e:MouseEvent ) : void

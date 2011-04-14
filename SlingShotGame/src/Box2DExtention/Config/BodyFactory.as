@@ -21,11 +21,8 @@ package Box2DExtention.Config
 		private static var blueprints:Object = {};
 		private static var userDatas:Object = {};
 		
-		public static var Structures:Array = [];
-		
 		public static function ParseConfig( config:XML ) : void
 		{
-			Structures = [];
 			ParseDefaultSettings( config.defaultSettings[0] );
 			CacheFixtureDefs( config.fixtureDef );
 			CacheBodyDefs( config.bodyDef); 
@@ -157,7 +154,6 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Box( World.Meters( node.@width ), World.Meters( node.@height ) );
-				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -168,7 +164,6 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Circle( World.Meters( node.@radius ) );
-				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -179,7 +174,6 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Triangle( World.Meters( node.@width ), World.Meters( node.@height ) );
-				Structures.push( body );
 				ResetConfig();
 			}
 		}
@@ -190,7 +184,6 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Trapezoid( World.Meters( node.@topWidth ), World.Meters( node.@bottomWidth ), World.Meters( node.@height ) );
-				Structures.push( body );
 				ResetConfig();
 			}
 		}

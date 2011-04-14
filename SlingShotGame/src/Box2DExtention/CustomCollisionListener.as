@@ -1,13 +1,14 @@
 package Box2DExtention 
 {	
-	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.Contacts.b2Contact;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2ContactListener;
 	
-	import GameTools.TrajectoryPath;
+	import Box2DExtention.Delgates.LoopManager;
 	
 	import Pages.GamePage;
+	
+	import Utils.HUD;
 	
 	/**
 	 *@author ghostmonk - Apr 11, 2011
@@ -31,13 +32,39 @@ package Box2DExtention
 			var bodyA:b2Body = contact.GetFixtureA().GetBody();
 			var bodyB:b2Body = contact.GetFixtureB().GetBody();
 			
-			var dataA:Object = bodyA.GetFixtureList().GetUserData();
-			var dataB:Object = bodyB.GetFixtureList().GetUserData();
+			var velA:Number = Math.abs( bodyA.GetAngularVelocity() );
+			var velB:Number = Math.abs( bodyB.GetAngularVelocity() );
 			
-			var velocityA:b2Vec2 = bodyA.GetLinearVelocity();
-			var velocityB:b2Vec2 = bodyB.GetLinearVelocity();
+			if( velA < 1 && velB < 1 )
+				return;
 			
-			trace( "POW" );
+			var isAFaster:Boolean = velA > velB;
+			var speed:Number = isAFaster ? velA : velB;
+			
+			var reduction:int;
+			
+			if( speed < 5 ) reduction = 2;
+			else if( speed < 10 ) reduction = 3;
+			else if ( speed < 15 ) reduction = 4;
+			else reduction = 5;
+			
+			HandleImpact( isAFaster ? bodyB : bodyA, reduction );
+		}
+		
+		private function HandleImpact( body:b2Body, reduction:int ) : void
+		{
+			var data:Object = body.GetFixtureList().GetUserData();
+			
+			if( data != null && !isNaN( data.strength ) && data.canDelete )
+			{
+				var strength:int = data.strength -= reduction;
+				if( strength <= 0 )
+				{
+					LoopManager.DeletionBodies.push( body );
+					HUD.Instance.AddToScore( int( data.score ) );
+					if( data.isTarget ) GamePage.DeletedTargets++;
+				}
+			}
 		}
 	}
 }

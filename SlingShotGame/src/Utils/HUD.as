@@ -22,8 +22,8 @@ package Utils
 			Reset();
 			score = 0;
 			scoreTxt.text = score.toString();
-			bairdsLabel.text = Resources.BairdsLeft;
-			scoreLabel.text = Resources.Score;
+			bairdsLabel.text = Resources.BairdsLeft.toUpperCase();
+			scoreLabel.text = Resources.Score.toUpperCase();
 		}
 		
 		public static function get Instance() : HUD
@@ -40,6 +40,14 @@ package Utils
 		{
 			score += amt;
 			scoreTxt.text = score.toString();
+		}
+		
+		public function ScoreLeftOverMen() : void
+		{
+			AddToScore( men.length * 1000 );
+			RemoveMan();
+			RemoveMan();
+			RemoveMan();			
 		}
 		
 		public function Reset() : void

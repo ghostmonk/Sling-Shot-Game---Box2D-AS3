@@ -11,6 +11,7 @@ package GameTools
 	import caurina.transitions.Tweener;
 	
 	import com.ghostmonk.utils.GridMaker;
+	import com.ghostmonk.utils.TimedCallback;
 	
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -110,19 +111,11 @@ package GameTools
 			removeEventListener( MouseEvent.MOUSE_DOWN, OnMouseDown );
 			addEventListener( Event.ENTER_FRAME, OnEnterFrame );
 			
-			StartTimeout();
+			TimedCallback.create( OnTimerComplete, GameSettings.CompletedShotPause );
 		}
 		
-		private function StartTimeout() : void
+		private function OnTimerComplete() : void
 		{
-			timer = new Timer( 5500, 1 );
-			timer.addEventListener( TimerEvent.TIMER_COMPLETE, OnTimerComplete );
-			timer.start();
-		}
-		
-		private function OnTimerComplete( e:TimerEvent ) : void
-		{
-			timer = null;
 			removeEventListener( Event.ENTER_FRAME, OnEnterFrame );
 			dispatchEvent( new Event( SHOT_COMPLETE ) );
 		}

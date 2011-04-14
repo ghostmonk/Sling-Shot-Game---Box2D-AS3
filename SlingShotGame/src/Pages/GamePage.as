@@ -44,15 +44,17 @@ package Pages
 		[Embed("Levels/Level3.xml", mimeType="application/octet-stream")]
 		private var level3:Class;
 		
-		private var currentLevelConfig:Class;
-		private var currentLevel:int;
+		public static var DeletedTargets:int = 0;
+		public var currentLevel:int;
+		public var UpdatePath:Boolean = true;
 		
 		private var loopManager:LoopManager;
 		private var hud:HUD;
 		private var slingShot:SlingShot;
 		private var currentRagDoll:Array = [];
 		
-		public var UpdatePath:Boolean = true;
+		private var numberOfTargets:int;
+		private var currentLevelConfig:Class;
 		private var trajectoryPath:TrajectoryPath;
 		
 		private var oldX:int = 0;
@@ -114,10 +116,26 @@ package Pages
 		
 		private function CheckGameStatus() : void
 		{
-			if( hud.MenLeft > 0 ) 
+			if( IsWin() ) return; 
+			
+			if( hud.MenLeft > 0 )
+			{
 				NewMan();
-			else
+				return;
+			}
+			
+			DeletedTargets = 0;
+			dispatchEvent( new LevelEvent( LevelEvent.LEVEL_FAILED, currentLevel ) );
+		}
+		
+		private function IsWin() : Boolean
+		{
+			if( numberOfTargets >= 0 && DeletedTargets >= numberOfTargets )
+			{
 				dispatchEvent( new LevelEvent( LevelEvent.LEVEL_SUCCESS, currentLevel ) );
+				return true;
+			}
+			return false;
 		}
 		
 		private function GetLevelConfig( XmlClass:Class ) : XML 
@@ -140,6 +158,7 @@ package Pages
 		private function ClearLevel() : void
 		{
 			hud.Reset();
+			DeletedTargets = 0;
 			trajectoryPath.Clear();
 			clearTrajectory = true;
 			var body:b2Body = World.Instance.GetBodyList();
@@ -152,8 +171,12 @@ package Pages
 		
 		private function CreateLevel( xml:XML ) : void
 		{
+			var targetStructure:XMLList = xml.structure.(@name == "targets");
+			numberOfTargets = targetStructure.length() > 0 ? targetStructure[0].children().length() : -1;
+			
 			BodyFactory.ParseConfig( xml );
 			CreateGrid();
+			camera.GameStartPan();
 		}
 		
 		private function CreateSlingShot() : void
@@ -193,7 +216,7 @@ package Pages
 			oldX = 0;
 			
 			HUD.Instance.RemoveMan();
-			TimedCallback.create( CheckGameStatus, 500 );
+			CheckGameStatus();
 		}
 		
 		private var gridSprite:Sprite = new Sprite();
