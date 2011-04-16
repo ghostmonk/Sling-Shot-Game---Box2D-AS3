@@ -26,6 +26,19 @@ package
 		public static var BairdsLeft:String;
 		public static var Score:String;
 		
+		public static var HowToPlay:String;
+		public static var Instruction1:String;
+		public static var Instruction2:String;
+		public static var Instruction3:String;
+		public static var Disclaimer:String;
+		public static var PublicService:String;
+		public static var WomensRights:String;
+		public static var UniversalHealthCare:String;
+		public static var Budget:String;
+		public static var Judiciary:String;
+		public static var Kairos:String;
+		public static var Charter:String;
+		
 		public static function SetLanguage( isEnglish:Boolean ) : void
 		{
 			AngryBairds = "Angry Bairds";
@@ -47,6 +60,19 @@ package
 			
 			BairdsLeft = "Bairds Left:";
 			Score = "Score:";
+			
+			HowToPlay = "How to play Angry Bairds";
+			Instruction1 = "1. Click on John and pull the slingshot back";
+			Instruction2 = "2. aim, and shoot him towards the institutions of our democracy";
+			Instruction3 = "3. Crash john into various symbols of our democracy";
+			Disclaimer = "© 2011 Authorized by The Federal Liberal Agency of Canada, registered agent for the Liberal Party of Canada.";
+			PublicService = "The Public Service";
+			WomensRights = "Women's Rights";
+			UniversalHealthCare = "Universal Healthcare";
+			Budget = "Parliamentary Budget Office";
+			Judiciary = "Independant Judiciary";
+			Kairos = "KAIROS";
+			Charter = "Charter of Rights and Freedoms";
 		}
 	}
 }

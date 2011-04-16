@@ -16,6 +16,7 @@ package Pages
 	import GameTools.TrajectoryPath;
 	
 	import Utils.HUD;
+	import Utils.SoundUtility;
 	import Utils.StageRef;
 	
 	import com.ghostmonk.utils.GridMaker;
@@ -200,6 +201,7 @@ package Pages
 		
 		private function OnSlingRelease( e:Event ) : void
 		{
+			SoundUtility.PlayNextAngryComment();
 			contactListener.IsDisabled = false;
 			if( clearTrajectory ) trajectoryPath.Clear();
 			clearTrajectory = !clearTrajectory;

@@ -5,18 +5,19 @@ package
 	
 	import Pages.ControlPanel;
 	import Pages.GamePage;
+	import Pages.InstructionsPage;
 	import Pages.LevelChooser;
 	import Pages.TitleScreen;
 	
+	import Utils.BackgroundManager;
 	import Utils.HUD;
 	import Utils.KeyPressController;
+	import Utils.SoundUtility;
 	import Utils.StageRef;
 	
 	import com.ghostmonk.utils.TimedCallback;
 	
 	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 
@@ -24,7 +25,6 @@ package
 	[Frame ( factoryClass="Utils.GameLoader" ) ]
 	public class SlingShotGame extends Sprite
 	{
-		private var titleScreen:TitleScreen;
 		private var levelChooser:LevelChooser;
 		private var gamePage:GamePage;
 		private var controlPanel:ControlPanel;
@@ -37,17 +37,32 @@ package
 		private function OnAddedToStage( e:Event ) : void
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, OnAddedToStage );
-			
 			StageRef.stage = stage;
+			BackgroundManager.AddGradientBackground();
+			
 			Resources.SetLanguage( true );
 			
 			CreateControlPanel();
 			
-			titleScreen = new TitleScreen();
-			titleScreen.addEventListener( TitleScreen.START_GAME, OnStartGameStart );
+			var titleScreen:TitleScreen = new TitleScreen();
+			titleScreen.addEventListener( TitleScreen.START_GAME, OnInstructions );
 			addChild( titleScreen );
+		}
+		
+		private function OnInstructions( e:Event ) : void
+		{
+			var instructions:InstructionsPage = new InstructionsPage();
+			instructions.addEventListener( InstructionsPage.NEXT_CLICKED, OnStartGameStart );
+			addChild( instructions );
+		}
+		
+		private function OnStartGameStart( e:Event ) : void
+		{
+			levelChooser = new LevelChooser();
+			levelChooser.addEventListener( LevelEvent.LEVEL_CHOICE, OnLevelChosen );
+			addChild( levelChooser );
 			
-			KeyPressController.Instance.addEventListener( KeyPressController.KEY_PRESS, OnKeyPress );
+			levelChooser.BuildIn();
 		}
 		
 		private function CreateControlPanel() : void
@@ -61,17 +76,10 @@ package
 			controlPanel.addEventListener( ControlPanelEvent.RETURN_TO_MENU, OnReturnToMenu );
 		}
 		
-		private function OnStartGameStart( e:Event ) : void
-		{
-			levelChooser = new LevelChooser();
-			levelChooser.addEventListener( LevelEvent.LEVEL_CHOICE, OnLevelChosen );
-			addChild( levelChooser );
-			
-			levelChooser.BuildIn();
-		}
-		
 		private function OnLevelChosen( e:LevelEvent ) : void
 		{
+			KeyPressController.Instance.addEventListener( KeyPressController.KEY_PRESS, OnKeyPress );
+			BackgroundManager.RemoveGradientBackground();
 			levelChooser.BuildOut();
 			TimedCallback.create( CreateNewGame, 300, e.Level );
 		}
@@ -133,7 +141,7 @@ package
 			HUD.Instance.visible = false;
 			gamePage.visible = false;
 			addChild( levelChooser );
-			
+			BackgroundManager.AddGradientBackground();
 			levelChooser.BuildIn();
 		}
 		

@@ -2,6 +2,8 @@ package Pages
 {	
 	import caurina.transitions.Tweener;
 	
+	import com.ghostmonk.ui.interactive.buttons.ClickableSprite;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
@@ -12,11 +14,12 @@ package Pages
 	{
 		public static const START_GAME:String = "startGame";
 		
+		private var btn:ClickableSprite;
+		
 		public function TitleScreen()
 		{
-			startGameBtn.addEventListener( MouseEvent.CLICK, OnStartGameCick );
-			titleClip.titleTxt.text = Resources.AngryBairds.toUpperCase();
-			startGameLabel.text = Resources.StartGame.toUpperCase();
+			btn = new ClickableSprite( this, OnStartGameCick );
+			titleClip.title.text = Resources.AngryBairds.toUpperCase();
 		}
 		
 		private function OnStartGameCick( e:MouseEvent ) : void

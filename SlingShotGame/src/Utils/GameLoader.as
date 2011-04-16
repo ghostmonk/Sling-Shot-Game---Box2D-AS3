@@ -31,11 +31,14 @@ package Utils
 			
 			_preloader.x = ( stage.stageWidth - _preloader.width ) * 0.5;
 			_preloader.y = ( stage.stageHeight - _preloader.height ) * 0.5;
+			_preloader.percentTxt.text = "0%";
 		}
 		
 		override protected function updateLoader( percent:Number ) : void 
 		{	
-			_preloader.gotoAndStop( Math.ceil( percent * _preloader.totalFrames ) );	
+			var number:int = Math.ceil( percent * _preloader.totalFrames );
+			_preloader.percentTxt.text = number + "%";
+			_preloader.gotoAndStop( number );	
 		}
 		
 		override protected function cleanUp() : void 
