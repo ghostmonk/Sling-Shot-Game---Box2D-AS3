@@ -1,25 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level3>
-	
-	<defaultSettings>
-		
-		<world name="slingShot" meterPixels="30" xGravity="0" yGravity="10" />
-		
-		<boundary width="3180" height="8000" />
-		
-		<fixtureDef density="0.1" friction="0.5" restitution="0.0" isSensor="false" />
-		
-		<bodyDef x="0.0" y="0.0" type="dynamic"
+    
+    <defaultSettings>
+        
+        <world name="slingShot" meterPixels="30" xGravity="0" yGravity="10" />
+        
+        <boundary width="3180" height="8000" />
+        
+        <fixtureDef density="0.1" friction="0.5" restitution="0" isSensor="false" />
+        
+        <bodyDef x="0.0" y="0.0" type="dynamic"
             active="true" allowSleep="true" awake="true" bullet="false" fixedRotation="false" inertiaScale="1.0"  
             angle="0.0" angularDamping="0.0" angularVelocity="0.0" 
             linearDamping="0.0" linearVelocityX="0.0" linearVelocityY="0.0" />
-			
-	</defaultSettings>
-	
-	<structure name="targets" x="1700" y="100" userDataId="target">
-        <circle x="0" y="0" radius="100" density="0.1" />
+            
+    </defaultSettings>
+    
+    <structure name="Floor" x="1660" y="334" fixtureDefId="dense" userDataId="basic">
+        <box x="0" y="147" width="50" height="10" />
+        <box x="101" y="147" width="50" height="10" />
+        <box x="202" y="147" width="50" height="10" />
+        <box x="303" y="147" width="50" height="10" />
+        <box x="404" y="147" width="50" height="10" />
+        <box x="505" y="147" width="50" height="10" />
+        <box x="606" y="147" width="50" height="10" />
     </structure>
     
-    <userData id="target" strength="5" isTarget="true" canDelete="true" score="560" />
-	
+   <structure name="Row1" x="1620" y="253" fixtureDefId="dense" userDataId="basic">
+        <box x="0" y="147" width="10" height="70" />
+        <box x="100" y="147" width="10" height="70" />     
+        <box x="155" y="172" width="10" height="45" />
+        <box x="250" y="172" width="10" height="45" />
+        <box x="345" y="172" width="10" height="45" />
+        <box x="440" y="172" width="10" height="45" />
+        <box x="535" y="172" width="10" height="45" />
+        <box x="585" y="147" width="10" height="70" />
+        <box x="685" y="147" width="10" height="70" />
+    </structure>
+    
+    <structure name="RowRoof" x="1815" y="369" fixtureDefId="dense" userDataId="basic">
+        <box x="0" y="0" width="50" height="10" />
+        <box x="101" y="0" width="50" height="10" />
+        <box x="200" y="0" width="48" height="10" />
+        <box x="300" y="0" width="50" height="10" />
+    </structure>
+    
+    <structure name="Row2" x="1620" y="323" fixtureDefId="dense" userDataId="basic">
+        <box x="155" y="0" width="10" height="35" />
+        <box x="250" y="0" width="10" height="35" />
+        <box x="345" y="0" width="10" height="35" />
+        <box x="440" y="0" width="10" height="35" />
+        <box x="535" y="0" width="10" height="35" />
+    </structure>
+    
+    <structure name="Roofs" x="1670" y="222" fixtureDefId="dense" userDataId="basic">
+        <triangle x="0" y="47" width="120" height="120" />
+        <triangle x="585" y="47" width="120" height="120" />
+        <trapezoid x="296" y="0" topWidth="200" bottomWidth="400" height="130" />
+    </structure>
+    
+    <structure name="targets" x="1823" y="126" userDataId="target">
+        <circle name="Item01" x="-85" y="150" radius="30" density="0" />
+        <circle name="Item02" x="367" y="140" radius="30" density="0" />
+        
+        <circle name="Item03" x="0" y="313" radius="30" density="0" />
+        <circle name="Item04" x="95" y="313" radius="30" density="0" />
+        <circle name="Item05" x="190" y="313" radius="30" density="0" />
+        <circle name="Item06" x="285" y="313" radius="30" density="0" />
+        
+        <circle name="Item07" x="95" y="0" radius="30" density="0" />
+        <circle name="Item08" x="190" y="0" radius="30" density="0" />
+    </structure>
+    
+    <fixtureDef id="dense" density="10" />
+    <userData id="basic" strength="3" isTarget="false" canDelete="true" score="380" />
+    <userData id="target" strength="3" isTarget="true" canDelete="true" score="560" />
+    
 </level3>

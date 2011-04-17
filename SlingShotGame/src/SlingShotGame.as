@@ -38,12 +38,12 @@ package
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, OnAddedToStage );
 			StageRef.stage = stage;
-			BackgroundManager.AddGradientBackground();
-			
 			Resources.SetLanguage( true );
 			
+			//CreateNewGame( 2 );
 			CreateControlPanel();
 			
+			BackgroundManager.AddGradientBackground();
 			var titleScreen:TitleScreen = new TitleScreen();
 			titleScreen.addEventListener( TitleScreen.START_GAME, OnInstructions );
 			addChild( titleScreen );

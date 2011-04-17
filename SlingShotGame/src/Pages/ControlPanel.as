@@ -138,7 +138,7 @@ package Pages
 		
 		private function RemoveNextBtn() : void
 		{
-			menuBtn.x = ( background.width - ( menuBtn.width * 2 + 30 ) ) * 0.5;
+			menuBtn.x = ( background.width - ( menuBtn.width * 2 + 30 ) ) * 0.5 + background.x - 20;
 			reloadBtn.x = menuBtn.x + menuBtn.width + 30;
 		}
 		
