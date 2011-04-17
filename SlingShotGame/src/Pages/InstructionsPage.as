@@ -22,13 +22,19 @@ package Pages
 			instruction2.text = Resources.Instruction2;
 			instruction3.text = Resources.Instruction3;
 			disclaimer.text = Resources.Disclaimer;
+			
 			iconTxt1.text = Resources.PublicService;
-			iconTxt2.text = Resources.WomensRights;
-			iconTxt3.text = Resources.UniversalHealthCare;
-			iconTxt4.text = Resources.Budget;
-			iconTxt5.text = Resources.Judiciary;
-			iconTxt6.text = Resources.Kairos;
-			iconTxt7.text = Resources.Charter;
+			iconTxt2.text = Resources.UniversalHealthCare;
+			iconTxt3.text = Resources.GunControl;
+			iconTxt4.text = Resources.WheatBoard;
+			iconTxt5.text = Resources.Students;
+			iconTxt6.text = Resources.Veterans;
+			iconTxt7.text = Resources.Budget;
+			iconTxt8.text = Resources.Broadcasting;
+			iconTxt9.text = Resources.Environment;
+			iconTxt10.text = Resources.Charter;
+			iconTxt11.text = Resources.UN;
+			iconTxt12.text = Resources.WomensRights;
 			
 			var next:ClickableSprite = new ClickableSprite( nextBtn, BuildOut );
 			

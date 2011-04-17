@@ -31,13 +31,19 @@ package
 		public static var Instruction2:String;
 		public static var Instruction3:String;
 		public static var Disclaimer:String;
+		
 		public static var PublicService:String;
-		public static var WomensRights:String;
 		public static var UniversalHealthCare:String;
+		public static var GunControl:String;
+		public static var WheatBoard:String;
+		public static var Students:String;
+		public static var Veterans:String;
 		public static var Budget:String;
-		public static var Judiciary:String;
-		public static var Kairos:String;
+		public static var Broadcasting:String;
+		public static var Environment:String;
 		public static var Charter:String;
+		public static var UN:String;
+		public static var WomensRights:String;
 		
 		public static function SetLanguage( isEnglish:Boolean ) : void
 		{
@@ -66,13 +72,19 @@ package
 			Instruction2 = "2. aim, and shoot him towards the institutions of our democracy";
 			Instruction3 = "3. Crash john into various symbols of our democracy";
 			Disclaimer = "© 2011 Authorized by The Federal Liberal Agency of Canada, registered agent for the Liberal Party of Canada.";
+			
 			PublicService = "The Public Service";
-			WomensRights = "Women's Rights";
 			UniversalHealthCare = "Universal Healthcare";
+			GunControl = "Gun Control";
+			WheatBoard = "The Wheat Board";
+			Students = "Students";
+			Veterans = "Vetrans";
 			Budget = "Parliamentary Budget Office";
-			Judiciary = "Independant Judiciary";
-			Kairos = "KAIROS";
+			Broadcasting = "Public Broadcasting";
+			Environment = "The Environment";
 			Charter = "Charter of Rights and Freedoms";
+			UN = "The U.N.";
+			WomensRights = "Women's Rights";
 		}
 	}
 }

@@ -70,7 +70,7 @@ package Box2DExtention.Config
 			
 			//floor
 			BodyDefSettings.Instance.X = width * 0.5;
-			BodyDefSettings.Instance.Y = stageHeight - ( thickness * 0.5 );
+			BodyDefSettings.Instance.Y = stageHeight - ( thickness * 0.5 ) - 1;
 			BodyMaker.Box( width, thickness );
 			
 			//roof

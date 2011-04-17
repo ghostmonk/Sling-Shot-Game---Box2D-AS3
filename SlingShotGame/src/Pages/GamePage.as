@@ -15,6 +15,7 @@ package Pages
 	import GameTools.SlingShot;
 	import GameTools.TrajectoryPath;
 	
+	import Utils.BackgroundManager;
 	import Utils.HUD;
 	import Utils.SoundUtility;
 	import Utils.StageRef;
@@ -70,11 +71,11 @@ package Pages
 			contactListener = new CustomCollisionListener( this );
 			World.Instance.SetContactListener( contactListener );
 			World.DebugView( this );
+			
 			loopManager = new LoopManager();
 			loopManager.ShowFpsCounter = true;
 			
 			hud = HUD.Instance;
-			StageRef.stage.addChild( hud );
 			
 			trajectoryPath = new TrajectoryPath();
 			addChild( trajectoryPath );
@@ -96,6 +97,8 @@ package Pages
 		{
 			hud.visible = true;
 			currentLevel = level;
+			BackgroundManager.ClearClouds( this );
+			BackgroundManager.AddClouds( this );
 			
 			switch( level )
 			{
@@ -152,7 +155,7 @@ package Pages
 			{
 				World.Instance.DestroyBody( body );
 			}
-			currentRagDoll = Ragdoll.Simple( 90, 350, 100 );
+			currentRagDoll = Ragdoll.SimpleWelded( 90, 350, 100 );
 			slingShot.Load( currentRagDoll );
 		}
 		

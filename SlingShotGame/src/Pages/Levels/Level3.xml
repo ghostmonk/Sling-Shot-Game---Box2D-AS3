@@ -16,7 +16,7 @@
             
     </defaultSettings>
     
-    <structure name="Floor" x="1660" y="334" fixtureDefId="dense" userDataId="basic">
+    <structure name="Floor" x="1660" y="304" fixtureDefId="dense" userDataId="basic">
         <box x="0" y="147" width="50" height="10" />
         <box x="101" y="147" width="50" height="10" />
         <box x="202" y="147" width="50" height="10" />
@@ -26,7 +26,7 @@
         <box x="606" y="147" width="50" height="10" />
     </structure>
     
-   <structure name="Row1" x="1620" y="253" fixtureDefId="dense" userDataId="basic">
+   <structure name="Row1" x="1620" y="223" fixtureDefId="dense" userDataId="basic">
         <box x="0" y="147" width="10" height="70" />
         <box x="100" y="147" width="10" height="70" />     
         <box x="155" y="172" width="10" height="45" />
@@ -38,14 +38,14 @@
         <box x="685" y="147" width="10" height="70" />
     </structure>
     
-    <structure name="RowRoof" x="1815" y="369" fixtureDefId="dense" userDataId="basic">
+    <structure name="RowRoof" x="1815" y="339" fixtureDefId="dense" userDataId="basic">
         <box x="0" y="0" width="50" height="10" />
         <box x="101" y="0" width="50" height="10" />
         <box x="200" y="0" width="48" height="10" />
         <box x="300" y="0" width="50" height="10" />
     </structure>
     
-    <structure name="Row2" x="1620" y="323" fixtureDefId="dense" userDataId="basic">
+    <structure name="Row2" x="1620" y="293" fixtureDefId="dense" userDataId="basic">
         <box x="155" y="0" width="10" height="35" />
         <box x="250" y="0" width="10" height="35" />
         <box x="345" y="0" width="10" height="35" />
@@ -53,13 +53,13 @@
         <box x="535" y="0" width="10" height="35" />
     </structure>
     
-    <structure name="Roofs" x="1670" y="222" fixtureDefId="dense" userDataId="basic">
+    <structure name="Roofs" x="1670" y="192" fixtureDefId="dense" userDataId="basic">
         <triangle x="0" y="47" width="120" height="120" />
         <triangle x="585" y="47" width="120" height="120" />
         <trapezoid x="296" y="0" topWidth="200" bottomWidth="400" height="130" />
     </structure>
     
-    <structure name="targets" x="1823" y="126" userDataId="target">
+    <structure name="targets" x="1823" y="96" userDataId="target">
         <circle name="Item01" x="-85" y="150" radius="30" density="0" />
         <circle name="Item02" x="367" y="140" radius="30" density="0" />
         

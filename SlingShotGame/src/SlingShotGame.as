@@ -40,7 +40,7 @@ package
 			StageRef.stage = stage;
 			Resources.SetLanguage( true );
 			
-			//CreateNewGame( 2 );
+			//CreateNewGame( 3 );
 			CreateControlPanel();
 			
 			BackgroundManager.AddGradientBackground();
@@ -95,6 +95,7 @@ package
 			}
 			gamePage.visible = true;
 			gamePage.StartLevel( level );
+			StageRef.stage.addChild( HUD.Instance );
 		}
 		
 		private function OnLevelSuccess( e:LevelEvent ) : void
