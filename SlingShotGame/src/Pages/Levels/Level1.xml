@@ -16,10 +16,59 @@
             
     </defaultSettings>
     
-    <structure name="targets" x="1700" y="100" userDataId="target">
-        <circle x="0" y="0" radius="100" density="0.1" />
+    <structure name="Sign" x="1620" y="390" fixtureDefId="dense" userDataId="basic">
+        <box x="0" y="76" width="4" height="25" />
+        <box x="150" y="76" width="4" height="25" />
+        <box x="75" y="0" width="80" height="50" />
     </structure>
     
-    <userData id="target" strength="5" isTarget="true" canDelete="true" score="560" />
+    <structure name="Roof" x="1820" y="136" fixtureDefId="dense" userDataId="basic">
+        <trapezoid x="245" y="0" topWidth="300" bottomWidth="500" height="60" />
+        <box x="244" y="38" width="251" height="7" />
+        <box x="0" y="81" width="7" height="35" />
+        <box x="488" y="81" width="7" height="35" />
+        <box x="0" y="147" width="7" height="30" />
+        <box x="488" y="147" width="7" height="30" />
+    </structure>
+    
+    <structure name="RowCaps" x="1856" y="321" fixtureDefId="dense" userDataId="basic">
+        <box x="0" y="0" width="43" height="7" />
+        <box x="88" y="0" width="43" height="7" />
+        <box x="328" y="0" width="43" height="7" />
+        <box x="416" y="0" width="43" height="7" />
+    </structure>
+    
+    <structure name="Row1" x="1820" y="364" fixtureDefId="dense" blueprintId="GazeboRow" />
+    
+    <structure name="Row2" x="1820" y="435" fixtureDefId="dense" blueprintId="GazeboRow" />
+    
+    <structure name="Floor" x="1660" y="481" fixtureDefId="dense" userDataId="basic">
+        <box x="202" y="0" width="50" height="10" />
+        <box x="303" y="0" width="50" height="10" />
+        <box x="404" y="0" width="50" height="10" />
+        <box x="505" y="0" width="50" height="10" />
+        <box x="606" y="0" width="50" height="10" />
+    </structure>
+    
+    <blueprint id="GazeboRow" fixtureDefId="dense" userDataId="basic">
+        <box x="0" y="0" width="7" height="35" />
+        <box x="80" y="0" width="7" height="35" />
+        <box x="160" y="0" width="7" height="35" />
+        <box x="328" y="0" width="7" height="35" />
+        <box x="408" y="0" width="7" height="35" />
+        <box x="488" y="0" width="7" height="35" />
+    </blueprint>
+    
+    <structure name="targets" x="1880" y="74" userDataId="target">
+        <circle name="Item01" x="0" y="207" radius="30" density="0" />
+        <circle name="Item02" x="367" y="207" radius="30" density="0" />
+        <circle name="Item03" x="185" y="366" radius="30" density="0" />
+        <circle name="Item04" x="185" y="0" radius="30" density="0" />
+        <circle name="Item04" x="-150" y="235" radius="30" density="0" />
+    </structure>
+    
+    <fixtureDef id="dense" density="10" />
+    <userData id="basic" strength="3" isTarget="false" canDelete="true" score="380" />
+    <userData id="target" strength="3" isTarget="true" canDelete="true" score="560" />
     
 </level3>

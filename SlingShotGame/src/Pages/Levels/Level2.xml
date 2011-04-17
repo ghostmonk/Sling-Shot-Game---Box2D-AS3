@@ -38,6 +38,7 @@
         <circle name="Item01" x="0" y="288" radius="30" density="0" />
         <circle name="Clock" x="201" y="111" radius="35" density="0" />
         <circle name="Item02" x="401" y="288" radius="30" density="0" />
+        <circle name="Item02" x="201" y="373" radius="30" density="0" />
     </structure>
     
     <structure name="Steeples" x="1810" y="87" userDataId="basic">
