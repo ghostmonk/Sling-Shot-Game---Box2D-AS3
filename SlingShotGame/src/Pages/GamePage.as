@@ -70,7 +70,8 @@ package Pages
 		{
 			contactListener = new CustomCollisionListener( this );
 			World.Instance.SetContactListener( contactListener );
-			World.DebugView( this );
+			//World.DebugView( this );
+			World.View( this );
 			
 			loopManager = new LoopManager();
 			loopManager.ShowFpsCounter = true;

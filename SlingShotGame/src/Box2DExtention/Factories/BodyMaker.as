@@ -66,6 +66,7 @@ package Box2DExtention.Factories
 			var body:b2Body = World.Instance.CreateBody( GetBodyDef() );
 			fixtureDef.shape = shape;
 			body.CreateFixture( fixtureDef );
+			body.SetUserData( ObjectFuncs.clone( FixtureDefSettings.Instance.UserData ) );
 			return body;
 		}
 		
@@ -80,7 +81,6 @@ package Box2DExtention.Factories
 			fixtureDef.filter.groupIndex = fixtureConf.GroupIndex;
 			fixtureDef.filter.maskBits = fixtureConf.MaskBits;
 			fixtureDef.filter.categoryBits = fixtureConf.CategoryBits;
-			fixtureDef.userData = ObjectFuncs.clone( fixtureConf.UserData );
 			
 			return fixtureDef;
 		}

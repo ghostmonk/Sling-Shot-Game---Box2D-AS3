@@ -4,6 +4,8 @@ package Box2DExtention
 	import Box2D.Dynamics.b2DebugDraw;
 	import Box2D.Dynamics.b2World;
 	
+	import GameTools.Box2dGameDraw;
+	
 	import flash.display.Sprite;
 	
 	/**
@@ -17,6 +19,7 @@ package Box2DExtention
 		private static const GRAVITY:b2Vec2 = new b2Vec2( 0, 10 );
 		
 		private static var world:b2World;
+		private static var draw:Box2dGameDraw;
 		
 		private static var meterPixels:Number = 30;
 		
@@ -36,6 +39,12 @@ package Box2DExtention
 		public static function set MeterPixels( value:Number ) : void
 		{
 			meterPixels = value;
+		}
+		
+		public static function View( root:Sprite ) : void
+		{
+			draw = Box2dGameDraw.Instance;
+			draw.Container = root;
 		}
 		
 		/**

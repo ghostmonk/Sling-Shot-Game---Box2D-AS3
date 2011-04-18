@@ -6,6 +6,8 @@ package Box2DExtention.Delgates
 	import Box2DExtention.CustomCollisionListener;
 	import Box2DExtention.World;
 	
+	import GameTools.Box2dGameDraw;
+	
 	import General.FRateLimiter;
 	import General.FpsCounter;
 	
@@ -36,6 +38,8 @@ package Box2DExtention.Delgates
 		private var mouseActionDelegate:MouseActionDelegate;
 		private var fpsCounter:FpsCounter;
 		
+		private var gameDraw:Box2dGameDraw;
+		
 		/**
 		 * If managed correctly, the LoopManager should be able to handle updating the entire game.
 		 * The stage is used to listen for the EnterFrame event. The MouseActionDelegate allows for interactivity 
@@ -48,6 +52,7 @@ package Box2DExtention.Delgates
 		{
 			this.mouseActionDelegate = mouseActionDelegate;
 			world = World.Instance;
+			gameDraw = Box2dGameDraw.Instance;
 			StageRef.stage.addEventListener( Event.ENTER_FRAME, OnEnterFrame );
 		}
 		
@@ -85,7 +90,8 @@ package Box2DExtention.Delgates
 			var physStart:uint = getTimer();
 			world.Step( 1 / StepRatio, 10, 10 );
 			world.ClearForces();
-			world.DrawDebugData();
+			//world.DrawDebugData();
+			gameDraw.Update();
 			
 			for each( var method:Function in callbacks ) 
 			{

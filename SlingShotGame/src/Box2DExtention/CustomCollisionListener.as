@@ -6,6 +6,8 @@ package Box2DExtention
 	
 	import Box2DExtention.Delgates.LoopManager;
 	
+	import GameTools.Box2dGameDraw;
+	
 	import Pages.GamePage;
 	
 	import Utils.HUD;
@@ -53,7 +55,7 @@ package Box2DExtention
 		
 		private function HandleImpact( body:b2Body, reduction:int ) : void
 		{
-			var data:Object = body.GetFixtureList().GetUserData();
+			var data:Object = body.GetUserData();
 			
 			if( data != null && !isNaN( data.strength ) && data.canDelete )
 			{
@@ -61,6 +63,7 @@ package Box2DExtention
 				if( strength <= 0 )
 				{
 					LoopManager.DeletionBodies.push( body );
+					Box2dGameDraw.Instance.RemoveBody( body );
 					HUD.Instance.AddToScore( int( data.score ) );
 					if( data.isTarget ) GamePage.DeletedTargets++;
 				}

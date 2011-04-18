@@ -7,6 +7,8 @@ package Box2DExtention.Config
 	import Box2DExtention.Factories.BodyMaker;
 	import Box2DExtention.World;
 	
+	import GameTools.Box2dGameDraw;
+	
 	import Utils.StageRef;
 	
 	import com.ghostmonk.utils.ObjectFuncs;
@@ -154,7 +156,7 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Box( World.Meters( node.@width ), World.Meters( node.@height ) );
-				ResetConfig();
+				RenderSkin( body, node, node.@width, node.@height );
 			}
 		}
 		
@@ -164,7 +166,7 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Circle( World.Meters( node.@radius ) );
-				ResetConfig();
+				RenderSkin( body, node, node.@radius * 2, node.@radius * 2 );
 			}
 		}
 		
@@ -174,7 +176,7 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Triangle( World.Meters( node.@width ), World.Meters( node.@height ) );
-				ResetConfig();
+				RenderSkin( body, node, node.@width, node.@height );
 			}
 		}
 		
@@ -184,8 +186,21 @@ package Box2DExtention.Config
 			{
 				PreserveStructurePositions( structureNode, node );
 				var body:b2Body = BodyMaker.Trapezoid( World.Meters( node.@topWidth ), World.Meters( node.@bottomWidth ), World.Meters( node.@height ) );
-				ResetConfig();
+				var width:int = Math.max( node.@topWidth, node.@bottomWidth );
+				RenderSkin( body, node, width, node.@height );
 			}
+		}
+		
+		private static function RenderSkin( body:b2Body, node:XML, width:int, height:int ) : void
+		{
+			if( node.@skinId != null && node.@skinId.toString() != "" )
+			{
+				if( body.GetUserData() == null )
+					body.SetUserData( {} );
+				body.GetUserData().skinId = node.@skinId.toString();
+			}
+			Box2dGameDraw.Instance.AddBody( body, width, height );
+			ResetConfig();
 		}
 		
 		private static function PreserveStructurePositions( structureNode:XML, bodyNode:XML ) : void

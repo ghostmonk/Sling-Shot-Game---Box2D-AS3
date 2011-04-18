@@ -40,7 +40,7 @@ package
 			StageRef.stage = stage;
 			Resources.SetLanguage( true );
 			
-			//CreateNewGame( 3 );
+			//CreateNewGame( 1 );
 			CreateControlPanel();
 			
 			BackgroundManager.AddGradientBackground();
