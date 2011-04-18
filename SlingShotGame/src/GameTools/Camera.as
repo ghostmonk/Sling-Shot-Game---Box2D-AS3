@@ -5,8 +5,6 @@ package GameTools
 	
 	import caurina.transitions.Tweener;
 	
-	import com.ghostmonk.utils.GridMaker;
-	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;

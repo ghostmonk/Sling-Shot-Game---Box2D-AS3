@@ -27,7 +27,13 @@ package Utils
 				"parlroof" : ParlianmentRoof, 
 				"sign" : Sign, 
 				"supremeroof" : SupremeCourtRoof, 
-				"sumpremesteeple" : SupremeCourtSteeple 
+				"sumpremesteeple" : SupremeCourtSteeple,
+				"torso" : BairdTorso,
+				"head" : BairdHead,
+				"larm" : BairdLeftArm,
+				"lleg" : BairdLeftLeg,
+				"rarm" : BairdRightArm,
+				"rleg" : BairdRightLeg
 			};
 		
 		private static const materialFunctions:Object = 
@@ -45,7 +51,9 @@ package Utils
 		public static function GetClip( id:String ) : Sprite
 		{
 			var StructureClass:Class = clipReferences[id] as Class;
-			return new StructureClass();
+			var out:Sprite = new StructureClass();
+			out.mouseEnabled = false;
+			return out;
 		}
 		
 		private static function WoodBlock( width:int, height:int ) : Sprite
@@ -55,7 +63,7 @@ package Utils
 		
 		private static function ConcreteBlock( width:int, height:int ) : Sprite
 		{
-			return DrawBlock( width, height, 0xC2C1BF, 0xC2C1BF );
+			return DrawBlock( width, height, 0xC2C1BF, 0x767574 );
 		}
 		
 		private static function StoneBlock( width:int, height:int ) : Sprite

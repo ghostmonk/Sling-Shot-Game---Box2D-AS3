@@ -11,6 +11,7 @@ package Pages
 	
 	import Events.LevelEvent;
 	
+	import GameTools.Box2dGameDraw;
 	import GameTools.Camera;
 	import GameTools.SlingShot;
 	import GameTools.TrajectoryPath;
@@ -20,7 +21,6 @@ package Pages
 	import Utils.SoundUtility;
 	import Utils.StageRef;
 	
-	import com.ghostmonk.utils.GridMaker;
 	import com.ghostmonk.utils.TimedCallback;
 	
 	import flash.display.Sprite;
@@ -74,7 +74,7 @@ package Pages
 			World.View( this );
 			
 			loopManager = new LoopManager();
-			loopManager.ShowFpsCounter = true;
+			//loopManager.ShowFpsCounter = true;
 			
 			hud = HUD.Instance;
 			
@@ -154,6 +154,7 @@ package Pages
 			UpdatePath = true;
 			for each( var body:b2Body in currentRagDoll )
 			{
+				Box2dGameDraw.Instance.RemoveBody( body );
 				World.Instance.DestroyBody( body );
 			}
 			currentRagDoll = Ragdoll.SimpleWelded( 90, 350, 100 );
@@ -163,6 +164,7 @@ package Pages
 		private function ClearLevel() : void
 		{
 			hud.Reset();
+			
 			DeletedTargets = 0;
 			trajectoryPath.Clear();
 			clearTrajectory = true;
@@ -172,6 +174,7 @@ package Pages
 				World.Instance.DestroyBody( body );
 				body = World.Instance.GetBodyList();	
 			}
+			Box2dGameDraw.Instance.Clear();
 		}
 		
 		private function CreateLevel( xml:XML ) : void
@@ -180,7 +183,7 @@ package Pages
 			numberOfTargets = targetStructure.length() > 0 ? targetStructure[0].children().length() : -1;
 			
 			BodyFactory.ParseConfig( xml );
-			CreateGrid();
+			//CreateGrid();
 			camera.GameStartPan();
 		}
 		
@@ -225,7 +228,7 @@ package Pages
 			CheckGameStatus();
 		}
 		
-		private var gridSprite:Sprite = new Sprite();
+		/*private var gridSprite:Sprite = new Sprite();
 		
 		private function CreateGrid() : void
 		{
@@ -236,6 +239,6 @@ package Pages
 			gridSprite.y = -600;
 			gridSprite.x = 0;
 			addChild( gridSprite );
-		}
+		}*/
 	}
 }

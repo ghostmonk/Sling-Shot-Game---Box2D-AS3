@@ -56,7 +56,10 @@ package GameTools
 		{
 			var index:int = bodies.indexOf( body );
 			if( index == -1 ) return;
-			bodies.splice( index, 1 );
+			var target:b2Body = bodies.splice( index, 1 )[0];
+			var skin:Sprite = target.GetUserData().skin;
+			if( skin != null && skin.parent )
+				skin.parent.removeChild( skin );
 		}
 		
 		public function Update() : void

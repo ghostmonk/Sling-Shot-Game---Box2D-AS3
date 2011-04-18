@@ -7,7 +7,7 @@ package GameTools
 	{
 		private var fillColor:uint = 0xFFFFFF;
 		private var fillAlpha:Number = 1;
-		private var dashRadius:int = 1;
+		private var dashRadius:int = 2;
 		
 		public function Update( point:Point ) : void
 		{

@@ -54,26 +54,26 @@
     </structure>
     
     <structure name="Roofs" x="1670" y="192" fixtureDefId="dense" userDataId="basic">
-        <triangle x="0" y="47" width="120" height="120" />
-        <triangle x="585" y="47" width="120" height="120" />
-        <trapezoid x="296" y="0" topWidth="200" bottomWidth="400" height="130" />
+        <triangle x="0" y="47" width="120" height="120" skinId="sumpremesteeple" />
+        <triangle x="585" y="47" width="120" height="120" skinId="sumpremesteeple" />
+        <trapezoid x="296" y="0" topWidth="200" bottomWidth="400" height="130" skinId="supremeroof" />
     </structure>
     
     <structure name="targets" x="1823" y="96" userDataId="target">
-        <circle name="Item01" x="-85" y="150" radius="30" density="0" />
-        <circle name="Item02" x="367" y="140" radius="30" density="0" />
+        <circle name="Item01" x="-85" y="150" radius="30" density="0" skinId="gun" />
+        <circle name="Item02" x="367" y="140" radius="30" density="0" skinId="public" />
         
-        <circle name="Item03" x="0" y="313" radius="30" density="0" />
-        <circle name="Item04" x="95" y="313" radius="30" density="0" />
-        <circle name="Item05" x="190" y="313" radius="30" density="0" />
-        <circle name="Item06" x="285" y="313" radius="30" density="0" />
+        <circle name="Item03" x="0" y="313" radius="30" density="0" skinId="student" />
+        <circle name="Item04" x="95" y="313" radius="30" density="0" skinId="verterans" />
+        <circle name="Item05" x="190" y="313" radius="30" density="0" skinId="wheat" />
+        <circle name="Item06" x="285" y="313" radius="30" density="0" skinId="un" />
         
-        <circle name="Item07" x="95" y="0" radius="30" density="0" />
-        <circle name="Item08" x="190" y="0" radius="30" density="0" />
+        <circle name="Item07" x="95" y="0" radius="30" density="0" skinId="environment" />
+        <circle name="Item08" x="190" y="0" radius="30" density="0" skinId="broadcast" />
     </structure>
     
     <fixtureDef id="dense" density="10" />
-    <userData id="basic" strength="3" isTarget="false" canDelete="true" score="380" />
+    <userData id="basic" strength="3" isTarget="false" canDelete="true" score="380" material="concrete" />
     <userData id="target" strength="3" isTarget="true" canDelete="true" score="560" />
     
 </level3>

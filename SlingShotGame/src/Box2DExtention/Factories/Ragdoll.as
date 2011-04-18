@@ -17,6 +17,8 @@ package Box2DExtention.Factories
 	import Box2DExtention.Delgates.MouseActionDelegate;
 	import Box2DExtention.World;
 	
+	import GameTools.Box2dGameDraw;
+	
 	import flash.display.Stage;
 	import flash.events.MouseEvent;
 
@@ -84,6 +86,20 @@ package Box2DExtention.Factories
 			}
 			
 			FixtureDefSettings.Instance.Reset();
+			
+			torso.GetUserData().skinId = "torso";
+			head.GetUserData().skinId = "head";
+			rightArm.GetUserData().skinId = "rarm";
+			rightLeg.GetUserData().skinId = "rleg";
+			leftArm.GetUserData().skinId = "larm";
+			leftLeg.GetUserData().skinId = "lleg";
+			
+			Box2dGameDraw.Instance.AddBody( rightArm, 0, 0 );
+			Box2dGameDraw.Instance.AddBody( rightLeg, 0, 0 );
+			Box2dGameDraw.Instance.AddBody( leftArm, 0, 0 );
+			Box2dGameDraw.Instance.AddBody( leftLeg, 0, 0 );
+			Box2dGameDraw.Instance.AddBody( torso, 0, 0 );
+			Box2dGameDraw.Instance.AddBody( head, 0, 0 );
 			
 			return [ head, torso, leftLeg, rightLeg, leftArm, rightArm ];
 		}

@@ -35,16 +35,16 @@
     </structure>
     
     <structure name="targets" x="1810" y="57" userDataId="target">
-        <circle name="Item01" x="0" y="288" radius="30" density="0" />
-        <circle name="Clock" x="201" y="111" radius="35" density="0" />
-        <circle name="Item02" x="401" y="288" radius="30" density="0" />
-        <circle name="Item02" x="201" y="373" radius="30" density="0" />
+        <circle name="Women" x="0" y="288" radius="30" density="0" skinId="women" />
+        <circle name="Clock" x="201" y="111" radius="35" density="0" skinId="clock" />
+        <circle name="Health" x="401" y="288" radius="30" density="0" skinId="health" />
+        <circle name="Charter" x="201" y="373" radius="30" density="0" skinId="charter" />
     </structure>
     
     <structure name="Steeples" x="1810" y="57" userDataId="basic">
-        <trapezoid x="0" y="202" topWidth="50" bottomWidth="113" height="60" />
-        <trapezoid x="200" y="0" topWidth="10" bottomWidth="113" height="120" />
-        <trapezoid x="400" y="202" topWidth="50" bottomWidth="113" height="60" />
+        <trapezoid x="0" y="202" topWidth="50" bottomWidth="113" height="60" skinId="parlroof" />
+        <trapezoid x="200" y="0" topWidth="10" bottomWidth="113" height="120" skinId="parlsteeple" />
+        <trapezoid x="400" y="202" topWidth="50" bottomWidth="113" height="60" skinId="parlroof" />
     </structure>
     
     <structure name="LeftColumn" x="1760" y="297" blueprintId="ColumnBlock" />
@@ -60,7 +60,7 @@
     </blueprint>
     
     <fixtureDef id="dense" density="10" />
-    <userData id="basic" strength="3" isTarget="false" canDelete="true" score="380" />
+    <userData id="basic" strength="3" isTarget="false" canDelete="true" score="380" material="stone" />
     <userData id="target" strength="3" isTarget="true" canDelete="true" score="560" />
     
 </level1>

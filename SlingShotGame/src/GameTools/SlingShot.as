@@ -40,7 +40,7 @@ package GameTools
 		
 		private var timer:Timer;
 		public var projectilePosition:b2Vec2 = new b2Vec2();
-		private var textBox:TextField;
+		//private var textBox:TextField;
 		private var ragDoll:Array;
 		private var projectile:b2Body;
 		private var trajectory:b2Vec2 = new b2Vec2();
@@ -59,12 +59,12 @@ package GameTools
 			graphics.drawRect( -xRange, 0, xRange, yRange ); 
 			graphics.endFill();
 			
-			textBox = new TextField();
+			/*textBox = new TextField();
 			textBox.autoSize = TextFieldAutoSize.LEFT;
 			textBox.textColor = 0xaa1144;
 			textBox.selectable = false;
 			
-			addChild( textBox );
+			addChild( textBox );*/
 		}
 		
 		public function Load( ragDoll:Array ) : void
@@ -96,7 +96,7 @@ package GameTools
 				part.SetAwake( true );
 				
 			trajectory.Set( -xV * POWER, -yV * POWER );
-			textBox.text = "x: " + -xV * POWER + " y: " + -yV * POWER;
+			//textBox.text = "x: " + -xV * POWER + " y: " + -yV * POWER;
 		}
 		
 		private function OnMouseUp( e:MouseEvent ) : void

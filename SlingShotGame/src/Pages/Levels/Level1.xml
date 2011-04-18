@@ -60,11 +60,11 @@
     </blueprint>
     
     <structure name="targets" x="1880" y="44" userDataId="target">
-        <circle name="Item01" x="0" y="207" radius="30" density="0" skinId="budget" />
-        <circle name="Item02" x="367" y="207" radius="30" density="0" skinId="health" />
-        <circle name="Item03" x="185" y="366" radius="30" density="0" skinId="women" />
-        <circle name="Item04" x="185" y="0" radius="30" density="0" skinId="verterans" />
-        <circle name="Item04" x="-150" y="235" radius="30" density="0" skinId="public" />
+        <circle name="Budget" x="0" y="207" radius="30" density="0" skinId="budget" />
+        <circle name="Health" x="367" y="207" radius="30" density="0" skinId="health" />
+        <circle name="Women" x="185" y="366" radius="30" density="0" skinId="women" />
+        <circle name="Vets" x="185" y="0" radius="30" density="0" skinId="verterans" />
+        <circle name="Public" x="-150" y="235" radius="30" density="0" skinId="public" />
     </structure>
     
     <fixtureDef id="dense" density="10" />
