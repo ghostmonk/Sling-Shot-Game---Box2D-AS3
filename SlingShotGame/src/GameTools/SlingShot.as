@@ -35,8 +35,8 @@ package GameTools
 		public static const SHOT_COMPLETE:String = "shotComplete";
 		
 		private static const X_OFFSET:Number = 11.7;
-		private static const Y_OFFSET:Number = 3.5;	
-		private static const POWER:Number = 6.5;
+		private static const Y_OFFSET:Number = 5.3;	
+		private static const POWER:Number = 7.5;
 		
 		private var timer:Timer;
 		public var projectilePosition:b2Vec2 = new b2Vec2();

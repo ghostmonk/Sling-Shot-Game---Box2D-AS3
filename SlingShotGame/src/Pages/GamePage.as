@@ -189,9 +189,9 @@ package Pages
 		
 		private function CreateSlingShot() : void
 		{
-			slingShot = new SlingShot( 300, 300, UpdateContainer );
+			slingShot = new SlingShot( 300, 250, UpdateContainer );
 			slingShot.x = 350;
-			slingShot.y = 100;
+			slingShot.y = 160;
 			slingShot.addEventListener( SlingShot.SHOT_COMPLETE, OnShotComplete );
 			slingShot.addEventListener( SlingShot.SLING_RELEASE, OnSlingRelease );
 			addChild( slingShot );

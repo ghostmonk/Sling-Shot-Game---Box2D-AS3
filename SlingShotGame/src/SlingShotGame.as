@@ -12,7 +12,6 @@ package
 	import Utils.BackgroundManager;
 	import Utils.HUD;
 	import Utils.KeyPressController;
-	import Utils.SoundUtility;
 	import Utils.StageRef;
 	
 	import com.ghostmonk.utils.TimedCallback;

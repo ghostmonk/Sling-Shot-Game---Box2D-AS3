@@ -29,7 +29,7 @@ package Box2DExtention.Factories
 	{
 		public static function SimpleWelded( x:Number, y:Number, height:Number, mouseEnabled:Boolean = false ) : Array
 		{
-			FixtureDefSettings.Instance.Density = 1.5;
+			FixtureDefSettings.Instance.Density = 10.5;
 			FixtureDefSettings.Instance.GroupIndex = -7461234743182;
 			
 			x = World.Meters( x );
