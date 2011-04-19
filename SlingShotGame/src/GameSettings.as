@@ -6,6 +6,6 @@ package
 	 */
 	public class GameSettings 
 	{
-		public static const CompletedShotPause:int = 10000;
+		public static const CompletedShotPause:int = 8000;
 	}
 }

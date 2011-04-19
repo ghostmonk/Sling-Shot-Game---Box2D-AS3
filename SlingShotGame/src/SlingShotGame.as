@@ -29,7 +29,7 @@ package
 		private var controlPanel:ControlPanel;
 		
 		public function SlingShotGame()
-		{
+		{x
 			addEventListener( Event.ADDED_TO_STAGE, OnAddedToStage );
 		}
 		

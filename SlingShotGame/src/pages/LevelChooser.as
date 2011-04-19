@@ -36,11 +36,17 @@ package Pages
 		public function LevelChooser()
 		{
 			level1Badge = new ClickableSprite( badge1, OnChooseLevel1 );
+			badge1.levelName.text = Resources.TonyGazebo;
+			badge1.icons.gotoAndStop( 1 );
 			
 			level2Badge = new ClickableSprite( badge2, OnChooseLevel2 );
+			badge2.levelName.text = Resources.ParliamentHill;
+			badge2.icons.gotoAndStop( 2 );
 			Disable( level2Badge );
 			
 			level3Badge = new ClickableSprite( badge3, OnChooseLevel3 );
+			badge3.levelName.text = Resources.SupremeCourt;
+			badge3.icons.gotoAndStop( 3 );
 			Disable( level3Badge );
 			
 			badge1.inner.title.text = Resources.Level1.toUpperCase();

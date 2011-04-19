@@ -55,7 +55,11 @@ package GameTools
 		
 		public function GameStartPan() : void
 		{
+			Tweener.removeTweens(container);
+			Tweener.removeTweens(scaleEater);
+			scaleEater.scaleX = scaleEater.scaleY = 1;
 			container.x = min;
+			scaleEater.y = startY;
 			Tweener.addTween( container, { x:0, y:0, time:1.5, delay:2, transition:"linear" } );
 		}
 		

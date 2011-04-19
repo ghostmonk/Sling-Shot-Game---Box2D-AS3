@@ -55,7 +55,13 @@ package GameTools
 			this.yLimit = yRange;
 			this.onUpdate = onUpdate;
 			
-			graphics.beginFill( 0x000000, 0.1 );
+			var slingshotFrame:SlingShotFrame = new SlingShotFrame();
+			slingshotFrame.mouseEnabled = false;
+			slingshotFrame.x = -30;
+			slingshotFrame.y = yRange - 120;
+			addChild( slingshotFrame );
+			
+			graphics.beginFill( 0x000000, 0 );
 			graphics.drawRect( -xRange, 0, xRange, yRange ); 
 			graphics.endFill();
 			

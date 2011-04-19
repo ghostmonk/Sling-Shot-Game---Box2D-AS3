@@ -45,6 +45,10 @@ package
 		public static var UN:String;
 		public static var WomensRights:String;
 		
+		public static var SupremeCourt:String;
+		public static var ParliamentHill:String;
+		public static var TonyGazebo:String;
+		
 		public static function SetLanguage( isEnglish:Boolean ) : void
 		{
 			AngryBairds = "Angry Bairds";
@@ -85,6 +89,10 @@ package
 			Charter = "Charter of Rights and Freedoms";
 			UN = "The U.N.";
 			WomensRights = "Women's Rights";
+			
+			SupremeCourt = "Supreme Court";
+			ParliamentHill = "Parliament Hill";
+			TonyGazebo = "Tony's Gazebo";
 		}
 	}
 }

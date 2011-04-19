@@ -159,6 +159,7 @@ package Pages
 			}
 			currentRagDoll = Ragdoll.SimpleWelded( 90, 350, 100 );
 			slingShot.Load( currentRagDoll );
+			addChild( slingShot );
 		}
 		
 		private function ClearLevel() : void
