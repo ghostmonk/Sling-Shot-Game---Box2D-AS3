@@ -35,6 +35,7 @@ package Pages
 			menuStartX = menuBtn.x;
 			reloadStartX = reloadBtn.x;
 			nextStartX = nextBtn.x;
+			finalText.visible = false;
 			
 			reload = new ClickableSprite( reloadBtn, OnReload );
 			next = new ClickableSprite( nextBtn, OnNext );
@@ -128,10 +129,27 @@ package Pages
 		
 		public function GameComplete() : void
 		{
-			Title = Resources.GameComplete;
-			
+			Title = ""//Resources.GameComplete;
+				
 			SetBtnState( close, false );
 			SetBtnState( next, false );
+			
+			menuBtn.visible = false;
+			reloadBtn.visible = false;
+			menuBtn.alpha = 0;
+			reloadBtn.alpha = 0;
+			
+			finalText.visible = true;
+			finalText.alpha = 1;
+			finalText.text = Resources.GameComplete + " " + Resources.VoteLiberal;
+			
+			Tweener.addTween( finalText, { alpha:0, time:0.3, delay:5, transition:Equations.easeNone,
+				onComplete:function():void{
+					finalText.visible = false;
+					menuBtn.visible = true;
+					reloadBtn.visible = true;}} );
+			Tweener.addTween( menuBtn, { alpha:1, time:0.35, delay:5, transition:Equations.easeNone } );
+			Tweener.addTween( reloadBtn, { alpha:1, time:0.35, delay:5, transition:Equations.easeNone } );
 			
 			RemoveNextBtn();
 		}

@@ -48,51 +48,51 @@ package
 		public static var SupremeCourt:String;
 		public static var ParliamentHill:String;
 		public static var TonyGazebo:String;
+		public static var VoteLiberal:String;
 		
 		public static function SetLanguage( isEnglish:Boolean ) : void
 		{
-			AngryBairds = "Angry Bairds";
-			StartGame = "Start Game";
-			
-			ChooseLevel = "Choose A Level";
-			Level1 = "Level 1";
-			Level2 = "Level 2";
-			Level3 = "Level 3";
-			
-			Pause = "Pause";
-			TryAgain = "Try Again?";
-			YouWin = "You Win!!";
-			GameComplete = "Game Complete!"
-			
-			Menu = "Menu";
-			Reload = "Reload";
-			Next = "Next";
-			
-			BairdsLeft = "Bairds Left:";
-			Score = "Score:";
-			
-			HowToPlay = "How to play Angry Bairds";
-			Instruction1 = "1. Click on John and pull the slingshot back";
-			Instruction2 = "2. aim, and shoot him towards the institutions of our democracy";
-			Instruction3 = "3. Crash john into various symbols of our democracy";
+			ParliamentHill = isEnglish ? "Parliament Hill" : "";
+			Level1 = isEnglish ? "Level 1" : "";
+			Level2 = isEnglish ? "Level 2" : "";
+			ChooseLevel = isEnglish ? "Choose A Level" : "";
+			Level3 = isEnglish ? "Level 3" : "";
+			Pause = isEnglish ? "Pause" : "";
+			TryAgain = isEnglish ? "Try Again?" : "";
+			YouWin = isEnglish ? "You Win!!" : "";
+			Menu = isEnglish ? "Menu" : "";
+			Reload = isEnglish ? "Reload" : "";
+			Next = isEnglish ? "Next" : "";
 			Disclaimer = "© 2011 Authorized by The Federal Liberal Agency of Canada, registered agent for the Liberal Party of Canada.";
 			
-			PublicService = "The Public Service";
-			UniversalHealthCare = "Universal Healthcare";
-			GunControl = "Gun Control";
-			WheatBoard = "The Wheat Board";
-			Students = "Students";
-			Veterans = "Vetrans";
-			Budget = "Parliamentary Budget Office";
-			Broadcasting = "Public Broadcasting";
-			Environment = "The Environment";
-			Charter = "Charter of Rights and Freedoms";
-			UN = "The U.N.";
-			WomensRights = "Women's Rights";
+			GameComplete = isEnglish ? "Game Over for Angry Harper and Angry Baird" : "C’est fini pour Harper-en-colère et Baird-en-colère";
+			VoteLiberal = isEnglish ? "On May 2nd  - Vote Liberal" : "Votez libéral le 2 mai";
 			
-			SupremeCourt = "Supreme Court";
-			ParliamentHill = "Parliament Hill";
-			TonyGazebo = "Tony's Gazebo";
+			AngryBairds = isEnglish ? "Angry Bairds" : "Bairds-en-colère";
+					
+			BairdsLeft = isEnglish ? "Bairds Left: " : "bairds restant: ";
+			Score = isEnglish ? "Score:" : "Points: ";
+			
+			HowToPlay = isEnglish ? "How to play Angry Bairds" : "Comment jouer à bairds-en-colère";
+			Instruction1 = isEnglish ? "1. Click on Angry Baird to help Harper pull the slingshot back" : "1. Cliquez sur  Baird-en-colère et aidez Harper à tirer la fronde vers l’arrière";
+			Instruction2 = isEnglish ? "2. Aim and unleash him towards the Canadian groups and institutions on Harper’s hit list" : "2. Visez et lancez-le en direction des différents groupes et institutions du Canada sur la liste de Harper";
+			Instruction3 = isEnglish ? "3. Crash Angry Baird into the various buildings" : "3. Utilisez Baird-en-colère pour fracasser différents édifices";
+			
+			PublicService = isEnglish ? "Public Servants" : "Fonctionnaires";
+			UniversalHealthCare = isEnglish ? "Universal Healthcare" : "Système de soins de santé universel";
+			GunControl = isEnglish ? "Gun Control" : "Contrôle des armes à feu";
+			WheatBoard = isEnglish ? "The Wheat Board" : "La Commission du blé";
+			Students = isEnglish ? "Students" : "Étudiants";
+			Veterans = isEnglish ? "Vetrans" : "Anciens combattants";
+			Budget = isEnglish ? "Parliamentary Budget Office" : "Bureau parlementaire du budget";
+			Broadcasting = isEnglish ? "Public Broadcasting" : "Radiodiffusion publique";
+			Environment = isEnglish ? "The Environment" : "L’environnement";
+			Charter = isEnglish ? "Charter of Rights and Freedoms" : "La Charte des droits et libertés";
+			UN = isEnglish ? "The U.N." : "Les Nations Unies";
+			WomensRights = isEnglish ? "Women's Rights" : "Les droits des femmes";
+			
+			SupremeCourt = isEnglish ? "Supreme Court of Canada" : "Cour suprême du Canada";
+			TonyGazebo = isEnglish ? "Tony's Gazebo" : "Pavillon de Tony";
 		}
 	}
 }

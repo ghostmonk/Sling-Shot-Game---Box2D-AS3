@@ -18,6 +18,7 @@ package GameTools
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.utils.Timer;
@@ -48,6 +49,7 @@ package GameTools
 		private var yLimit:Number;
 		
 		private var onUpdate:Function;
+		private var elastic:Sprite;
 		
 		public function SlingShot( xRange:Number, yRange:Number, onUpdate:Function )
 		{
@@ -55,10 +57,15 @@ package GameTools
 			this.yLimit = yRange;
 			this.onUpdate = onUpdate;
 			
+			elastic = new Sprite();
+			elastic.x = -xRange;
+			
 			var slingshotFrame:SlingShotFrame = new SlingShotFrame();
 			slingshotFrame.mouseEnabled = false;
 			slingshotFrame.x = -30;
 			slingshotFrame.y = yRange - 120;
+			
+			addChild( elastic );
 			addChild( slingshotFrame );
 			
 			graphics.beginFill( 0x000000, 0 );
@@ -75,6 +82,7 @@ package GameTools
 		
 		public function Load( ragDoll:Array ) : void
 		{	
+			drawStart();
 			this.ragDoll = ragDoll;
 			this.projectile = ragDoll[1];
 			projectile.SetPosition( new b2Vec2( X_OFFSET - 1, Y_OFFSET + 1 ) );
@@ -93,8 +101,14 @@ package GameTools
 		private function OnMouseMove( e:MouseEvent ) : void
 		{
 			var M:Number = 10;
-			var xV:Number = World.Meters( Math.max( xLimit, Math.min( mouseX, 0 ) ) ); 
-			var yV:Number = World.Meters( Math.max( 0, Math.min( mouseY, yLimit ) ) );
+			
+			var guardedX:Number = Math.max( xLimit, Math.min( mouseX, 0 ) );
+			var guardedY:Number = Math.max( 0, Math.min( mouseY, yLimit ) );
+			
+			var xV:Number = World.Meters( guardedX ); 
+			var yV:Number = World.Meters( guardedY );
+			
+			updateElastic( guardedX, guardedY );
 			
 			projectile.SetPosition( new b2Vec2( xV + X_OFFSET, yV + Y_OFFSET ) );
 			
@@ -118,6 +132,8 @@ package GameTools
 			addEventListener( Event.ENTER_FRAME, OnEnterFrame );
 			
 			TimedCallback.create( OnTimerComplete, GameSettings.CompletedShotPause );
+			drawRelease();
+			
 		}
 		
 		private function OnTimerComplete() : void
@@ -129,6 +145,35 @@ package GameTools
 		private function OnEnterFrame( e:Event ) : void
 		{
 			onUpdate( projectile.GetWorldCenter() );
+		}
+		
+		private function updateElastic( x:Number, y:Number ) : void
+		{
+			elastic.graphics.clear();
+			elastic.graphics.lineStyle( 3, 0xFFFFFF, 1, true );
+			elastic.graphics.moveTo( 205, 75);
+			elastic.graphics.lineTo( x + 270, y + 14 );
+			
+			elastic.graphics.moveTo( x + 330, y );
+			elastic.graphics.lineTo( 370, 40 );
+		}
+		
+		private function drawRelease() : void
+		{
+			elastic.graphics.clear();
+			/*elastic.graphics.lineStyle( 3, 0xFFFFFF, 1, true );
+			elastic.graphics.moveTo( 205, 75);
+			elastic.graphics.lineTo( 370, 40 );*/
+		}
+		
+		private function drawStart() : void 
+		{
+			elastic.graphics.clear();
+			elastic.graphics.lineStyle( 3, 0xFFFFFF, 1, true );
+			elastic.graphics.moveTo( 205, 75);
+			elastic.graphics.lineTo( 245, 65 );
+			elastic.graphics.moveTo( 300, 50 );
+			elastic.graphics.lineTo( 370, 40 );
 		}
 	}
 }
