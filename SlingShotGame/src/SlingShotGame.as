@@ -37,7 +37,7 @@ package
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, OnAddedToStage );
 			StageRef.stage = stage;
-			Resources.SetLanguage( false );
+			Resources.SetLanguage( true );
 			
 			//CreateNewGame( 3 );
 			CreateControlPanel();

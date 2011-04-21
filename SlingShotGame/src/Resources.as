@@ -52,17 +52,17 @@ package
 		
 		public static function SetLanguage( isEnglish:Boolean ) : void
 		{
-			ParliamentHill = isEnglish ? "Parliament Hill" : "";
-			Level1 = isEnglish ? "Level 1" : "";
-			Level2 = isEnglish ? "Level 2" : "";
-			ChooseLevel = isEnglish ? "Choose A Level" : "";
-			Level3 = isEnglish ? "Level 3" : "";
-			Pause = isEnglish ? "Pause" : "";
-			TryAgain = isEnglish ? "Try Again?" : "";
-			YouWin = isEnglish ? "You Win!!" : "";
-			Menu = isEnglish ? "Menu" : "";
-			Reload = isEnglish ? "Reload" : "";
-			Next = isEnglish ? "Next" : "";
+			ParliamentHill = isEnglish ? "Parliament Hill" : "Colline parlementaire";
+			Level1 = isEnglish ? "Level 1" : "Niveau 1";
+			Level2 = isEnglish ? "Level 2" : "Niveau 2";
+			ChooseLevel = isEnglish ? "Choose A Level" : "Choisissez un niveau";
+			Level3 = isEnglish ? "Level 3" : "Niveau 3";
+			Pause = isEnglish ? "Pause" : "Pause";
+			TryAgain = isEnglish ? "Try Again?" : "Essayez encore ?";
+			YouWin = isEnglish ? "You Win!!" : "Vous gagnez !!";
+			Menu = isEnglish ? "Menu" : "Menu";
+			Reload = isEnglish ? "Reload" : "Rechargez";
+			Next = isEnglish ? "Next" : "Au suivant";
 			Disclaimer = "© 2011 Authorized by The Federal Liberal Agency of Canada, registered agent for the Liberal Party of Canada.";
 			
 			GameComplete = isEnglish ? "Game Over for Angry Harper and Angry Baird" : "C’est fini pour Harper-en-colère et Baird-en-colère";
